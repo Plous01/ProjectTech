@@ -7,7 +7,7 @@
     "start": "nodemon index.js"
   },
   "author": "Paulien Lous",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "camelcase": "^5.0.0"
   },
