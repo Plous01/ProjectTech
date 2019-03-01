@@ -26,4 +26,4 @@ npm run start
 * Camelcase
 
 ## License
-MIT
+[MIT](https://github.com/Plous01/ProjectTech/blob/master/LICENSE)
