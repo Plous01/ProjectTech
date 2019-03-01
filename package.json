@@ -1,0 +1,17 @@
+{
+  "name": "datingapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Paulien Lous",
+  "license": "ISC",
+  "dependencies": {
+    "camelcase": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
