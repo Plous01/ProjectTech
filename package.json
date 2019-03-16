@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Paulien Lous",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "camelcase": "^5.0.0",
     "express": "^4.16.4",
     "pug": "^2.0.3"

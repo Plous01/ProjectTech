@@ -1,0 +1,97 @@
+form {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+form fieldset {
+    margin: 1em;
+    padding: 1em;
+}
+
+form fieldset div.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+form fieldset div.form-container label,
+form fieldset div.form-container input {
+    flex-grow: 1;
+}
+
+form fieldset div.form-container input {
+    font-size: 1em;
+    margin-bottom: 1em;
+    height: 1.5em;
+}
+
+form fieldset div.form-container input::placeholder {
+    color: lightgray;
+}
+
+form fieldset div.form-container input:focus {
+    outline: none;
+    border: 0.3em solid var(--primary-action-color);
+    border-radius: 0.2em;
+    box-shadow: 0.1em 0.1em 0.5em var(--primary-action-color);
+}
+
+form fieldset legend {
+    font-weight: bold;
+}
+
+form div.button-container button.register {
+    border: none;
+    background-color: var(--primary-action-color);
+    font-size: 1em;
+    text-transform: uppercase;
+    height: 100%;
+    padding: 0.4em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    box-shadow: 0 1em 1.5em rgba(0, 0, 0, 0.15);
+    transition: all .2s ease-in-out;
+    color: white;
+    cursor: pointer;
+    margin: 1em;
+}
+
+form div.button-container button.cancel {
+    border: 1px solid var(--primary-action-color);
+    background-color: white;
+    font-size: 1em;
+    text-transform: uppercase;
+    height: 100%;
+    padding: 0.4em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    box-shadow: 0 1em 1.5em rgba(0, 0, 0, 0.15);
+    transition: all .2s ease-in-out;
+    color: black;
+    cursor: pointer;
+    margin: 1em;
+}
+
+
+form div.button-container button:hover {
+    transform: scale(1.1);
+}
+
+form div.button-container {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+@media (min-width: 62.5em) {
+    form {
+        width: 50%;
+    }
+
+    form fieldset div.form-container input:focus {
+        border: 0.1em solid var(--primary-action-color);
+    }
+
+}

@@ -1,0 +1,14 @@
+html
+    head
+    title Persons
+
+style
+    include ../public/css/style.css
+
+body
+h1 Persons
+
+ul
+    -for(var i = 0; i < persons.length; i++)
+        li
+            a(href='/person/' + i) #{persons[i].firstName}
