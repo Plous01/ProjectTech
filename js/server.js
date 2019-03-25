@@ -60,7 +60,7 @@ app.get("/persons", (request,response) => {
     
     db.collection("persons").find().limit(9).toArray((err, data) => {
         console.log(err, data);
-        response.render("persons2", { persons: data, request: request });
+        response.render("persons", { persons: data, request: request });
     });
 })
 
