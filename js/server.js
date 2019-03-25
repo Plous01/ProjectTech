@@ -5,6 +5,8 @@ const bodyparser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
+const session = require("express-session");
+
 const app = express();
 
 // Read the properties from the .env file
@@ -18,6 +20,12 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.use(express.static("public"));
 // Initialize pug templating engine
 app.set("view engine", "pug");
+// Tell express to use sessions
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET
+}));
 
 // Intialize connection to MongoDB database
 let db = null;
