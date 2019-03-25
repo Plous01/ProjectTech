@@ -6,22 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Aanmelden</title>
     <link rel="stylesheet" href="https://use.typekit.net/uyr6mwg.css">
-    <link rel="stylesheet" href="CSS/index.css">
-    <link rel="stylesheet" href="CSS/login.css">
+    <link rel="stylesheet" href="/css/amor.css">
+    <link rel="stylesheet" href="/css/form.css">
 </head>
 
 <body>
-    <header>
-        <section class="menu">
-            <a class="account" href="login.html">
-                <img src="Afbeeldingen/user.svg" alt="Mijn profiel" class="account-icon" />
-            </a>
-            <a class="search">
-                <img src="Afbeeldingen/search.svg" alt="Zoekloepje" class="search-icon" />
-            </a>
-
-        </section>
-    </header>
 
     <!--Aanmeldformulier-->
     <h1 class="aanmelden">Aanmelden</h1>
@@ -37,8 +26,9 @@
                 <label for="age">Leeftijd</label>
                 <input type="text" id="age" name="age">
                 <label for="gender">Gender</label>
-                <input type="radio" name="gender" value="M" > Man
-                <input type="radio" name="gender" value="F" checked> Vrouw
+                <span> <input type="radio" name="gender" value="M" > Man </span>
+                <span> <input type="radio" name="gender" value="F" checked> Vrouw </span>
+                <textarea name="description" placeholder="Omschrijf jezelf" rows="8"></textarea>
             </div>
         </fieldset>
 
@@ -46,11 +36,11 @@
             <legend>Account</legend>
             <div class="form-container">
                 <label for="email">E-mail</label>
-                <input id="email" type="email" placeholder="paulien.lous@hva.nl" required>
+                <input name="email" id="email" type="email" placeholder="paulien.lous@hva.nl" required>
                 <label for="password">Wachtwoord</label>
-                <input id="password" type="password" required>
+                <input name="password" id="password" type="password" required>
                 <label for="passwordcheck">Verifieer wachtwoord</label>
-                <input id="passwordcheck" type="password" required>
+                <input name="passwordcheck" id="passwordcheck" type="password" required>
 
             </div>
         </fieldset>
@@ -62,7 +52,7 @@
                     <label for="firstname">Ik beoefen de volgende sport(en)</label><br>
                     <input type="checkbox" name="fitness"> Fitness
                     <input type="checkbox" name="gymnastiek"> Gymnastiek
-                    <input type="checkbox" name="harlopen"> Hardlopen
+                    <input type="checkbox" name="hardlopen"> Hardlopen
                     <input type="checkbox" name="atletiek"> Atletiek
                     <input type="checkbox" name="hockey"> Hockey
                     <input type="checkbox" name="honkbal"> Honkbal

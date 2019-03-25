@@ -3,12 +3,45 @@ html
     title Persons
 
 style
-    include ../public/css/style.css
+    include ../public/css/index.css
 
 body
 h1 Persons
 
+form(action="", method="get")
+    input(type="checkbox", name="fitness" checked=request.query.fitness=="on")
+    span fitness
+    input(type="checkbox", name="gymnastiek" checked=request.query.gymnastiek=="on")
+    span gymanstiek
+    input(type="checkbox", name="hardlopen" checked=request.query.hardlopen=="on")
+    span hardlopen
+    input(type="checkbox", name="atletiek" checked=request.query.atletiek=="on")
+    span atletiek
+    input(type="checkbox", name="hockey" checked=request.query.hockey=="on")
+    span hockey
+    input(type="checkbox", name="honkbal" checked=request.query.honkbal=="on")
+    span honkbal
+    input(type="checkbox", name="paardensport" checked=request.query.paardensport=="on")
+    span paardensport
+    input(type="checkbox", name="tennis" checked=request.query.tennis=="on")
+    span tennis
+    input(type="checkbox", name="schaatsen" checked=request.query.schaatsen=="on")
+    span schaatsen
+    input(type="checkbox", name="voetbal" checked=request.query.voetbal=="on")
+    span voetbal
+    input(type="checkbox", name="volleybal" checked=request.query.volleybal=="on")
+    span volleybal
+    input(type="checkbox", name="waterpolo" checked=request.query.waterpolo=="on")
+    span waterpolo
+    input(type="checkbox", name="zwemmen" checked=request.query.zwemmen=="on")
+    span zwemmen
+    input(type="submit", value="filter")
+
+
 ul
     -for(var i = 0; i < persons.length; i++)
         li
-            a(href='/person/' + i) #{persons[i].firstName}
+            a(href='/person/' + persons[i]._id) #{persons[i].firstname} #{persons[i].lastname}
+    -if(persons.length==0)
+        li
+            span geen personen gevonden

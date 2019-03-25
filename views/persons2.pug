@@ -1,0 +1,82 @@
+doctype html
+html(lang='nl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Amor datingsite
+    link(rel='stylesheet', href='https://use.typekit.net/uyr6mwg.css')
+    link(rel='stylesheet', href='/css/index.css')
+  body
+    header
+      section.menu
+        a.account(href='login.html')
+          img.account-icon(src='img/user.svg', alt='Mijn profiel')
+        a.search
+          img.search-icon(src='img/search.svg', alt='Zoekloepje')
+    section.submenu
+      h1 Amor
+      ul
+        li
+          a(href='#') Alle studenten
+        li
+          a(href='#') Matches
+    main
+      aside
+        section.filter
+          #category Filter op sport
+          ul
+            li
+              input#avontuur(type='checkbox')
+              label(for='avontuur') Atletiek
+            li
+              input#romantisch(type='checkbox')
+              label(for='romantisch') Fitness
+            li
+              input#juridisch(type='checkbox')
+              label(for='juridisch') Gymnastiek
+            li
+              input#horror(type='checkbox')
+              label(for='horror') Hardlopen
+            li
+              input#koken(type='checkbox')
+              label(for='koken') Hockey
+            li
+              input#biografie(type='checkbox')
+              label(for='biografie') Honkbal
+            li
+              input#detective(type='checkbox')
+              label(for='detective') Paardensport
+            li
+              input#humor(type='checkbox')
+              label(for='humor') Tennis
+            li
+              input#psychologie(type='checkbox')
+              label(for='psychologie') Schaatsen
+            li
+              input#romantisch(type='checkbox')
+              label(for='romantisch') Voetbal
+            li
+              input#agressief(type='checkbox')
+              label(for='agressief') Volleybal
+            li
+              input#technologie(type='checkbox')
+              label(for='technologie') Waterpolo
+            li
+              input#sport(type='checkbox')
+              label(for='sport') Zwemmen
+
+      section.stories
+          -for(var i = 0; i < persons.length; i++)
+              article
+                  .article-container
+                      .article-image-container
+                          img.article-image(src='http://lorempixel.com/600/300/people?' + persons[i]._id)
+                      h2 #{persons[i].firstname} • #{persons[i].age} jaar • #{persons[i].sports ? persons[i].sports[0] : "" }
+                      p Hoi! Ik ben Annemarie, 20 jaar en ik studeer werktuigbouwkunde!
+                      a(href='/person/' + persons[i]._id) Meer over mij!
+          article
+              button Meer studenten
+    footer
+      p
+        | Copyright Paulien©
+    script(src='test.js')

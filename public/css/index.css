@@ -1,0 +1,58 @@
+:root {
+    --primary-action-color: #fc1d6c;
+    --secondary-action-color: #EEF0EC;
+    --third-action-color: #000;
+    --fourth-action-color:#464646; 
+    --icon-size: 1.2em;
+}
+
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url(../img/wallpaper.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: var(--fourth-action-color);
+}
+
+h1 {
+    color: #efecec;
+    text-transform: uppercase;
+    font-size: 60pt;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 3em;
+}
+
+p{
+    color: #efecec;
+    text-align: center;
+    font-size: 14pt;
+}
+
+form div.button-container button.register {
+    border: none;
+    background-color: var(--primary-action-color);
+    font-size: 1em;
+    text-transform: uppercase;
+    height: 100%;
+    padding: 0.4em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    box-shadow: 0 1em 1.5em rgba(0, 0, 0, 0.15);
+    transition: all .2s ease-in-out;
+    color: white;
+    cursor: pointer;
+    margin: 1em;
+    margin-top: 5em;
+}
+
+form div.button-container button:hover {
+    transform: scale(1.2);
+}
+
+form div.button-container {
+    text-align: center;
+    margin-bottom: 1em;
+}
