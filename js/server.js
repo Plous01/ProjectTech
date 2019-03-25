@@ -30,8 +30,10 @@ client.connect(err => {
     db = client.db(dbName);
 });
 
-//Globals
-let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek", "hockey", "honkbal", "paardensport", "tennis", "schaatsen", "voetbal", "volleybal", "waterpolo", "zwemmen"];
+// List of available sports
+let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek", 
+    "hockey", "honkbal", "paardensport", "tennis", "schaatsen", 
+    "voetbal", "volleybal", "waterpolo", "zwemmen"];
 
 app.get("/person/:id", (request,response) => {
     let personId = request.params.id;
@@ -58,8 +60,7 @@ app.get("/persons", (request,response) => {
         filter = { sports: { $all: selectedSports }};
     }
     
-    db.collection("persons").find().limit(9).toArray((err, data) => {
-        console.log(err, data);
+    db.collection("persons").find(filter).limit(9).toArray((err, data) => {
         response.render("persons", { persons: data, request: request });
     });
 })
@@ -92,8 +93,7 @@ app.post("/person/register", (request,response) => {
         description: description,
         sports: selectedSports
     },(err, data) => {
-        response.writeHead(302, { "Location" : "/persons" });
-        response.end();    
+        response.redirect("/persons");
     })
 
 })

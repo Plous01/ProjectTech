@@ -99,8 +99,7 @@ main aside {
     margin: 0.4em;
 }
 
-main aside section.filter,
-main aside section.extra {
+main aside form.filter {
     border: 0.3em solid var(--secondary-action-color);
     margin-left: 0.2em;
     margin-right: 1em;
@@ -129,12 +128,10 @@ main aside section.sort select option {
     color: black;
 }
 
-main aside section.filter {
+main aside form.filter {
     padding-left: 0.4em;
     font-size: 1em;
 }
-
-
 
 main aside section.extra {
     border: 0px;
@@ -151,13 +148,12 @@ main aside section.extra button {
     padding-right: 0.4em;
 }
 
-
-main aside section.filter {
+main aside form.filter {
     position: relative;
     background-color: white;
 }
 
-main aside section.filter ul {
+main aside form.filter ul {
     position: absolute;
     top: 0.4em;
     left: -0.3em;
@@ -170,7 +166,7 @@ main aside section.filter ul {
     background-color: white;
 }
 
-main aside section.filter div {
+main aside form.filter div {
     font-size: 1.2em;
     font-weight: bold;
     padding-left: 0.35fem;
@@ -386,7 +382,7 @@ section.submenu ul li a:hover {
         margin-left: 2em;
     }
     main aside section.sort,
-    main aside section.filter {
+    main aside form.filter {
         flex-grow: 0;
         width: 15em;
     }
@@ -435,20 +431,20 @@ section.submenu ul li a:hover {
     }
 
     main aside section.sort,
-    main aside section.filter,
+    main aside form.filter,
     main aside section.extra {
         flex-grow: 0;
         width: 15em;
         margin-left: 1em;
     }
 
-    main aside section.filter ul {
+    main aside form.filter ul {
         display: block !important;
         position: initial;
         width: auto;
         border: 0px;
     }
-    main aside section.filter div {
+    main aside form.filter div {
         margin-top: 0.2em;
         padding-left: 0.8em;
     }

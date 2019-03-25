@@ -5,7 +5,7 @@ html(lang='nl')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title Amor datingsite
     link(rel='stylesheet', href='https://use.typekit.net/uyr6mwg.css')
-    link(rel='stylesheet', href='/css/index.css')
+    link(rel='stylesheet', href='/css/amor.css')
   body
     header
       section.menu
@@ -22,48 +22,49 @@ html(lang='nl')
           a(href='#') Matches
     main
       aside
-        section.filter
+        form.filter(action='/persons')
           #category Filter op sport
           ul
             li
-              input#avontuur(type='checkbox')
+              input#avontuur(type='checkbox', name='atletiek', checked=request.query.atletiek=="on")
               label(for='avontuur') Atletiek
             li
-              input#romantisch(type='checkbox')
+              input#romantisch(type='checkbox', name='fitness', checked=request.query.fitness=="on")
               label(for='romantisch') Fitness
             li
-              input#juridisch(type='checkbox')
+              input#juridisch(type='checkbox' name='gymnastiek', checked=request.query.gymnastiek=="on")
               label(for='juridisch') Gymnastiek
             li
-              input#horror(type='checkbox')
+              input#horror(type='checkbox' name='hardlopen', checked=request.query.hardlopen=="on")
               label(for='horror') Hardlopen
             li
-              input#koken(type='checkbox')
+              input#koken(type='checkbox' name='hockey', checked=request.query.hockey=="on")
               label(for='koken') Hockey
             li
-              input#biografie(type='checkbox')
+              input#biografie(type='checkbox' name='honkbal', checked=request.query.honkbal=="on")
               label(for='biografie') Honkbal
             li
-              input#detective(type='checkbox')
+              input#detective(type='checkbox' name='paardensport', checked=request.query.paardensport=="on")
               label(for='detective') Paardensport
             li
-              input#humor(type='checkbox')
+              input#humor(type='checkbox' name='tennis', checked=request.query.tennis=="on")
               label(for='humor') Tennis
             li
-              input#psychologie(type='checkbox')
+              input#psychologie(type='checkbox' name ='schaatsen', checked=request.query.schaatsen=="on")
               label(for='psychologie') Schaatsen
             li
-              input#romantisch(type='checkbox')
+              input#romantisch(type='checkbox' name='voetbal', checked=request.query.voetbal=="on")
               label(for='romantisch') Voetbal
             li
-              input#agressief(type='checkbox')
+              input#agressief(type='checkbox' name='volleybal', checked=request.query.volleybal=="on")
               label(for='agressief') Volleybal
             li
-              input#technologie(type='checkbox')
+              input#technologie(type='checkbox' name='waterpolo', checked=request.query.waterpolo=="on")
               label(for='technologie') Waterpolo
             li
-              input#sport(type='checkbox')
+              input#sport(type='checkbox' name='zwemmen', checked=request.query.zwemmen=="on")
               label(for='sport') Zwemmen
+          button(type=submit) Filter
 
       section.stories
           -for(var i = 0; i < persons.length; i++)
@@ -79,4 +80,3 @@ html(lang='nl')
     footer
       p
         | Copyright Paulien©
-    script(src='test.js')
