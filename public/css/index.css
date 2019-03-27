@@ -30,6 +30,9 @@ p{
     text-align: center;
     font-size: 14pt;
 }
+form {
+    display: inline;
+}
 
 form div.button-container button.register {
     border: none;
@@ -43,6 +46,23 @@ form div.button-container button.register {
     box-shadow: 0 1em 1.5em rgba(0, 0, 0, 0.15);
     transition: all .2s ease-in-out;
     color: white;
+    cursor: pointer;
+    margin: 1em;
+    margin-top: 5em;
+}
+
+form div.button-container button.inloggen {
+    border: none;
+    background-color: var(--secondary-action-color);
+    font-size: 1em;
+    text-transform: uppercase;
+    height: 100%;
+    padding: 0.4em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+    box-shadow: 0 1em 1.5em rgba(0, 0, 0, 0.15);
+    transition: all .2s ease-in-out;
+    color:var(--primary-action-color);
     cursor: pointer;
     margin: 1em;
     margin-top: 5em;

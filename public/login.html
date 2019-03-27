@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/form.css">
+    <title>Inloggen</title>
+</head>
+
+<body>
+    <h1 class="aanmelden">Inloggen</h1>
+
+    <form action="/login" method="POST" novalidate>
+        <fieldset>
+            <legend>Persoonlijk</legend>
+            <div class="form-container">
+                <label for="email">E-mail</label>
+                <input name="email" id="email" type="text" placeholder="your.email@host.nl" required />
+                <label for="password">Wachtwoord</label>
+                <input name="password" id="password" type="password" required />
+            </div>
+        </fieldset>
+
+        <div class="button-container">
+            <button class="inloggen" type="submit">Inloggen</button>
+        </div>
+    </form>
+
+</body>
+
+</html>

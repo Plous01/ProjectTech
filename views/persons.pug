@@ -9,17 +9,12 @@ html(lang='nl')
   body
     header
       section.menu
-        a.account(href='login.html')
+        a.account(href='/account')
           img.account-icon(src='img/user.svg', alt='Mijn profiel')
-        a.search
-          img.search-icon(src='img/search.svg', alt='Zoekloepje')
+        a.logout(href='/logout')
+          img.logout-icon(src='img/logout.svg', alt='Uitloggen')
     section.submenu
       h1 Amor
-      ul
-        li
-          a(href='#') Alle studenten
-        li
-          a(href='#') Matches
     main
       aside
         form.filter(action='/persons')
@@ -66,14 +61,14 @@ html(lang='nl')
               label(for='sport') Zwemmen
           button(type=submit) Filter
 
-      section.stories
+      section.persons
           -for(var i = 0; i < persons.length; i++)
               article
                   .article-container
                       .article-image-container
                           img.article-image(src='http://lorempixel.com/600/300/people?' + persons[i]._id)
                       h2 #{persons[i].firstname} • #{persons[i].age} jaar • #{persons[i].sports ? persons[i].sports[0] : "" }
-                      p Hoi! Ik ben Annemarie, 20 jaar en ik studeer werktuigbouwkunde!
+                      p #{persons[i].description}
                       a(href='/person/' + persons[i]._id) Meer over mij!
           article
               button Meer studenten

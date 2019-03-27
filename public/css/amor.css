@@ -52,7 +52,7 @@ header section.menu {
 }
 
 header section.menu a.account,
-header section.menu a.search {
+header section.menu a.logout {
     flex-grow: 1;
     padding-bottom: 1.2em;
     text-align: center;
@@ -60,35 +60,9 @@ header section.menu a.search {
 
 
 header section.menu a img.account-icon,
-header section.menu a img.search-icon {
+header section.menu a img.logout-icon {
     width: var(--icon-size);
     height: var(--icon-size);
-}
-
-header section.banner-container {
-    position: relative;
-    display: none;
-}
-
-header section.banner-container img.banner-image {
-    width: 100%;
-    height: 50vh;
-    object-fit: cover;
-}
-
-header section.banner-container div.banner-text {
-    position: absolute;
-    color: white;
-    top: 0%;
-    left: 5%;
-    font-size: 1.3em;
-}
-
-header section.banner-container div.banner-text button {
-    border: none;
-    background-color: var(--secondary-action-color);
-    font-size: 1em;
-    padding: 0.6em 1em 0.6em 1em;;
 }
 
 main aside {
@@ -106,26 +80,6 @@ main aside form.filter {
     margin-bottom: 1em;
     flex-grow: 1;
     padding-top: .5em;
-}
-
-main aside section.sort select {
-    -webkit-appearance:none;
-    background-color: white;
-    border: 0;
-    border-radius: 0;
-    color: black;
-    font-size: 1.2em;
-    font-weight: bold;
-    width: 100%;
-}
-
-main aside section.sort select:focus {
-    outline: 0;
-}
-
-main aside section.sort select option {
-    background-color: white;
-    color: black;
 }
 
 main aside form.filter {
@@ -154,12 +108,10 @@ main aside form.filter {
 }
 
 main aside form.filter ul {
-    position: absolute;
     top: 0.4em;
     left: -0.3em;
     width: 19.8em;
     z-index: 10;
-    display: none;
     list-style: none;
     white-space: nowrap;
     padding-left: 0.8em;
@@ -175,7 +127,7 @@ main aside form.filter div {
     user-select: none;
 }
 
-main section.stories {
+main section.persons {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -183,7 +135,7 @@ main section.stories {
     margin: 0.4em;
 }
 
-main section.stories article {
+main section.persons article {
     position: relative;
     display: flex;
     flex-basis: 100%;
@@ -193,48 +145,48 @@ main section.stories article {
     margin-right:0.6em;
 }
 
-main section.stories article {
+main section.persons article {
     transition: all 0.2s ease-in-out;
 }
 
-main section.stories article:hover {
+main section.persons article:hover {
    transform: scale(1.05);
 }
 
 
-main section.stories article div.article-container {
+main section.persons article div.article-container {
     display: flex;
     flex-basis: 100%;
     flex-direction: column;
 }
 
-main section.stories article.dummy {
+main section.persons article.dummy {
     display: none;
 }
 
-main section.stories article div.article-image-container {
+main section.persons article div.article-image-container {
     position: relative;
     margin-bottom: 0.5em;
 }
 
-main section.stories article h2 {
+main section.persons article h2 {
     margin: 0;
 }
 
-main section.stories article div.article-image-container img.article-image {
+main section.persons article div.article-image-container img.article-image {
     width: 100%;
 }
 
-main section.stories article div.article-image-container img.like-icon,
-main section.stories article div.article-image-container img.download-icon,
-main section.stories article div.article-image-container img.add-icon {
+main section.persons article div.article-image-container img.like-icon,
+main section.persons article div.article-image-container img.download-icon,
+main section.persons article div.article-image-container img.add-icon {
     position: absolute;
     width: var(--icon-size);
     height: var(--icon-size);
     cursor: pointer;
 }
 
-main section.stories article div.article-image-container img.like-icon {
+main section.persons article div.article-image-container img.like-icon {
     bottom: 10%;
     left: 5%;
 }
@@ -244,12 +196,12 @@ main article img.download-icon {
     right: 5%;
 }
 
-main section.stories article div.article-image-container img.add-icon {
+main section.persons article div.article-image-container img.add-icon {
     bottom: 10%;
     right: 15%;
 }
 
-main section.stories article div.article-image-container div.like-count {
+main section.persons article div.article-image-container div.like-count {
     position: absolute;
     color: white;
     bottom: 10%;
@@ -257,11 +209,11 @@ main section.stories article div.article-image-container div.like-count {
     font-weight: bold;
 }
 
-main section.stories article p {
+main section.persons article p {
     flex-grow: 1;
 }
 
-main section.stories article a {
+main section.persons article a {
     text-decoration: none;
     text-transform: uppercase;
     color: var(--third-action-color);
@@ -269,13 +221,13 @@ main section.stories article a {
     font-weight: bold;
 }
 
-main section.stories article a:hover {
+main section.persons article a:hover {
     color: #fc1d6c;
     border-color: #fc1d6c;
     border-bottom: 0.4em solid var(--primary-action-color);
 }
 
-main section.stories article button {
+main section.persons article button {
     background-color: var(--primary-action-color);
     color: white;
     border: none;
@@ -344,7 +296,7 @@ section.submenu ul li a:hover {
         position: relative;
     }
 
-    header section.menu a.search {
+    header section.menu a.logout {
         position: absolute;
         top: 1em;
         right: -0.5em;
@@ -384,7 +336,6 @@ section.submenu ul li a:hover {
     main aside section.sort,
     main aside form.filter {
         flex-grow: 0;
-        width: 15em;
     }
 
     main aside section.extra {
@@ -393,7 +344,7 @@ section.submenu ul li a:hover {
     header section.banner-container {
         display: block;
     }
-    main section.stories article {
+    main section.persons article {
         flex-basis: 45%;
     }
     footer{
@@ -416,11 +367,11 @@ section.submenu ul li a:hover {
         display: flex;
     }
 
-    main section.stories article {
+    main section.persons article {
         flex-basis: 30%;
     }
 
-    main section.stories article.dummy {
+    main section.persons article.dummy {
         display: block;
     }
 

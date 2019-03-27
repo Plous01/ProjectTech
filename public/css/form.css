@@ -1,9 +1,29 @@
+:root {
+    --primary-action-color: #fc1d6c;
+    --secondary-action-color: #EEF0EC;
+    --third-action-color: #000;
+    --icon-size: 1.2em;
+}
+
+html {
+    font-family: "ff-din-round-web",Arial,sans-serif;
+    font-size: 13pt;
+}
+
+p {
+    line-height: 1.5;
+}
+
 form {
     margin-left: auto;
     margin-right: auto;
 }
 
 h1 {
+    line-height: 1.25;
+    margin-bottom: 0;
+    font-size: 30pt;
+    padding-bottom: 1em;
     text-align: center;
 }
 

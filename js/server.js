@@ -44,6 +44,11 @@ let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
     "voetbal", "volleybal", "waterpolo", "zwemmen"];
 
 app.get("/person/:id", (request,response) => {
+    if (!request.session.personId) {
+        response.redirect("/");
+        return;
+    }
+
     let personId = request.params.id;
     let objectId = new ObjectId(personId);
     db.collection("persons").findOne( {"_id": objectId},(err, data) => {
@@ -55,7 +60,22 @@ app.get("/person/:id", (request,response) => {
     } );
 })
 
+app.get("/account", (request,response) => {
+    if (!request.session.personId) {
+        response.redirect("/");
+        return;
+    }
+    let personId = request.session.personId;
+    console.log(personId);
+    response.redirect("/person/" + personId);
+})
+
 app.get("/persons", (request,response) => {
+    if (!request.session.personId) {
+        response.redirect("/");
+        return;
+    }
+
     let selectedSports = [];
     for(let sport of sports){
         if(request.query[sport]==="on"){
@@ -73,7 +93,7 @@ app.get("/persons", (request,response) => {
     });
 })
 
-app.post("/person/register", (request,response) => {
+app.post("/register", (request,response) => {
     console.log("Register new person...");
     console.log(request.body);
     let firstname = request.body.firstname;
@@ -104,6 +124,28 @@ app.post("/person/register", (request,response) => {
         response.redirect("/persons");
     })
 
+})
+
+app.post("/login", (request,response) => {
+    console.log("Person login...");
+    let loginEmail = request.body.email;
+    let loginPassword = request.body.password;
+
+    db.collection("persons").findOne({email: loginEmail, password: loginPassword}, (error, person) => {
+        console.log(person);
+        if (error || person==null) {
+            response.redirect("/login.html");
+        } else {
+            console.log(person);
+            request.session.personId = person._id;
+            response.redirect("/persons");
+        }
+    });
+})
+
+app.get("/logout",(request,response) => {
+    request.session.destroy();
+    response.redirect("/");
 })
 
 // Start the server!
