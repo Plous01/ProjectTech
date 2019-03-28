@@ -1,11 +1,11 @@
 //Require packages
-const express = require("express");
-const pug = require("pug");
-const bodyparser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
+const express = require("express"); //source https://expressjs.com
+const pug = require("pug"); //source https://pugjs.org/api/getting-started.html
+const bodyparser = require("body-parser"); // source https://www.npmjs.com/package/body-parser
+const MongoClient = require("mongodb").MongoClient; // source https://www.mongodb.com
 const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
-const session = require("express-session");
+const session = require("express-session"); //source https://www.npmjs.com/package/express-session
 
 // Create express application
 const app = express();
@@ -13,10 +13,11 @@ const app = express();
 // Read the properties from the .env file
 dotenv.config();
 
-// Initialize Express
-
 // Add body parser (used when a form is POST-ed)
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.urlencoded({
+    extended: true
+}));
+
 // Add static content directory (static HTML, client side JavaScript, images and CSS)
 app.use(express.static("public"));
 // Initialize pug templating engine
@@ -33,7 +34,10 @@ let db = null;
 
 const dbUri = process.env.DB_URI;
 const dbName = process.env.DB_NAME;
-const client = new MongoClient(dbUri, { useNewUrlParser: true });
+const client = new MongoClient(dbUri, {
+    useNewUrlParser: true
+});
+
 client.connect(error => {
     if (error) {
         console.log(error);
@@ -43,11 +47,12 @@ client.connect(error => {
 });
 
 // List of available sports
-let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek", 
-    "hockey", "honkbal", "paardensport", "tennis", "schaatsen", 
-    "voetbal", "volleybal", "waterpolo", "zwemmen"];
+let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
+    "hockey", "honkbal", "paardensport", "tennis", "schaatsen",
+    "voetbal", "volleybal", "waterpolo", "zwemmen"
+];
 
-app.get("/person/:id", (request,response) => {
+app.get("/person/:id", (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");
@@ -56,16 +61,18 @@ app.get("/person/:id", (request,response) => {
 
     let personId = request.params.id;
     let objectId = new ObjectId(personId);
-    db.collection("persons").findOne( {"_id": objectId},(error, person) => {
-        if (error || person==null) {
+    db.collection("persons").findOne({
+        "_id": objectId
+    }, (error, person) => {
+        if (error || person == null) {
             response.status(404).send("Not found");
         } else {
             response.render("person", person);
         }
-    } );
+    });
 })
 
-app.get("/account", (request,response) => {
+app.get("/account", (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");
@@ -75,7 +82,7 @@ app.get("/account", (request,response) => {
     response.redirect("/person/" + personId);
 })
 
-app.get("/persons", (request,response) => {
+app.get("/persons", (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");
@@ -83,23 +90,30 @@ app.get("/persons", (request,response) => {
     }
 
     let selectedSports = [];
-    for(let sport of sports){
-        if(request.query[sport]==="on"){
+    for (let sport of sports) {
+        if (request.query[sport] === "on") {
             selectedSports.push(sport);
         }
     }
 
     let filter = null;
-    if (selectedSports.length>0) {
-        filter = { sports: { $all: selectedSports }};
+    if (selectedSports.length > 0) {
+        filter = {
+            sports: {
+                $all: selectedSports
+            }
+        };
     }
-    
+
     db.collection("persons").find(filter).toArray((error, persons) => {
-        response.render("persons", { persons: persons, request: request });
+        response.render("persons", {
+            persons: persons,
+            request: request
+        });
     });
 })
 
-app.post("/register", (request,response) => {
+app.post("/register", (request, response) => {
     console.log("Register new person...");
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
@@ -108,10 +122,10 @@ app.post("/register", (request,response) => {
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
-     
+
     let selectedSports = [];
-    for(let sport of sports){
-        if(request.body[sport]==="on"){
+    for (let sport of sports) {
+        if (request.body[sport] === "on") {
             selectedSports.push(sport);
         }
     }
@@ -125,19 +139,22 @@ app.post("/register", (request,response) => {
         password: password,
         description: description,
         sports: selectedSports
-    },(error, person) => {
+    }, (error, person) => {
         response.redirect("/");
     })
 
 })
 
-app.post("/login", (request,response) => {
+app.post("/login", (request, response) => {
     console.log("Person login...");
     let loginEmail = request.body.email;
     let loginPassword = request.body.password;
 
-    db.collection("persons").findOne({email: loginEmail, password: loginPassword}, (error, person) => {
-        if (error || person==null) {
+    db.collection("persons").findOne({
+        email: loginEmail,
+        password: loginPassword
+    }, (error, person) => {
+        if (error || person == null) {
             response.redirect("/login.html");
         } else {
             request.session.personId = person._id;
@@ -146,7 +163,7 @@ app.post("/login", (request,response) => {
     });
 })
 
-app.get("/logout",(request,response) => {
+app.get("/logout", (request, response) => {
     request.session.destroy();
     response.redirect("/");
 })
