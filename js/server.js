@@ -7,6 +7,7 @@ const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
 const session = require("express-session");
 
+// Create express application
 const app = express();
 
 // Read the properties from the .env file
@@ -33,8 +34,11 @@ let db = null;
 const dbUri = process.env.DB_URI;
 const dbName = process.env.DB_NAME;
 const client = new MongoClient(dbUri, { useNewUrlParser: true });
-client.connect(err => {
-    if (err) throw err;
+client.connect(error => {
+    if (error) {
+        console.log(error);
+        throw error;
+    }
     db = client.db(dbName);
 });
 
@@ -44,6 +48,7 @@ let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
     "voetbal", "volleybal", "waterpolo", "zwemmen"];
 
 app.get("/person/:id", (request,response) => {
+    // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");
         return;
@@ -51,26 +56,27 @@ app.get("/person/:id", (request,response) => {
 
     let personId = request.params.id;
     let objectId = new ObjectId(personId);
-    db.collection("persons").findOne( {"_id": objectId},(err, data) => {
-        if (err) {
+    db.collection("persons").findOne( {"_id": objectId},(error, person) => {
+        if (error || person==null) {
             response.status(404).send("Not found");
         } else {
-            response.render("person", data);
+            response.render("person", person);
         }
     } );
 })
 
 app.get("/account", (request,response) => {
+    // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");
         return;
     }
     let personId = request.session.personId;
-    console.log(personId);
     response.redirect("/person/" + personId);
 })
 
 app.get("/persons", (request,response) => {
+    // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");
         return;
@@ -88,14 +94,13 @@ app.get("/persons", (request,response) => {
         filter = { sports: { $all: selectedSports }};
     }
     
-    db.collection("persons").find(filter).limit(9).toArray((err, data) => {
-        response.render("persons", { persons: data, request: request });
+    db.collection("persons").find(filter).toArray((error, persons) => {
+        response.render("persons", { persons: persons, request: request });
     });
 })
 
 app.post("/register", (request,response) => {
     console.log("Register new person...");
-    console.log(request.body);
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
@@ -120,8 +125,8 @@ app.post("/register", (request,response) => {
         password: password,
         description: description,
         sports: selectedSports
-    },(err, data) => {
-        response.redirect("/persons");
+    },(error, person) => {
+        response.redirect("/");
     })
 
 })
@@ -132,11 +137,9 @@ app.post("/login", (request,response) => {
     let loginPassword = request.body.password;
 
     db.collection("persons").findOne({email: loginEmail, password: loginPassword}, (error, person) => {
-        console.log(person);
         if (error || person==null) {
             response.redirect("/login.html");
         } else {
-            console.log(person);
             request.session.personId = person._id;
             response.redirect("/persons");
         }
