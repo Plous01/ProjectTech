@@ -6,6 +6,7 @@ const MongoClient = require("mongodb").MongoClient; // source https://www.mongod
 const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
 const session = require("express-session"); //source https://www.npmjs.com/package/express-session
+const multer = require('multer')
 
 // Create express application
 const app = express();
@@ -28,6 +29,12 @@ app.use(session({
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET
 }));
+
+//Upload a photo
+let upload = multer({
+    dest: 'public/uploads/',
+    limits: {fileSize: 5000000}
+  })
 
 // Intialize connection to MongoDB database
 let db = null;
