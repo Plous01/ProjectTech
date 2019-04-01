@@ -47,10 +47,9 @@ client.connect(error => {
 });
 
 // List of available sports
-let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
-    "hockey", "honkbal", "paardensport", "tennis", "schaatsen",
-    "voetbal", "volleybal", "waterpolo", "zwemmen"
-];
+let sports = ["Fitness", "Gymnastiek", "Hardlopen", "Atletiek",
+    "Hockey", "Honkbal", "Paardensport", "Tennis", "Schaatsen",
+    "Voetbal", "Volleybal", "Waterpolo", "Zwemmen"];
 
 app.get("/person/:id", (request, response) => {
     // Check if user is logged in

@@ -2,18 +2,24 @@
     --primary-action-color: #fc1d6c;
     --secondary-action-color: #EEF0EC;
     --third-action-color: #000;
-    --fourth-action-color:#464646; 
+    --fourth-action-color:#464646;
     --icon-size: 1.2em;
 }
 
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-image: url(../img/wallpaper.jpg);
+    /* background-image: url(../img/wallpaper.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-color: var(--fourth-action-color);
+    background-color: var(--fourth-action-color); */
+
+    background: #ef632f; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #ef632f 0%, #fc1d6c 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #ef632f 0%,#fc1d6c 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #ef632f 0%,#fc1d6c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ef632f', endColorstr='#fc1d6c',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 h1 {
@@ -22,10 +28,38 @@ h1 {
     font-size: 60pt;
     font-weight: 400;
     text-align: center;
-    margin-top: 3em;
+    margin-top: 1em;
+}
+
+#imgWrapper{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+#profilePic{
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+}
+
+li{
+  display: inline;
+  background-color: #fcad1d;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 10px;
+  color: white;
 }
 
 p{
+    color: #efecec;
+    text-align: center;
+    font-size: 14pt;
+}
+
+div{
     color: #efecec;
     text-align: center;
     font-size: 14pt;
