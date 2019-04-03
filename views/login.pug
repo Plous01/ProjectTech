@@ -1,0 +1,23 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel='stylesheet', href='/css/form.css')
+    title Inloggen
+  body
+    h1.aanmelden Inloggen
+    form(action='/login', method='POST', novalidate='')
+      fieldset
+        legend Persoonlijk
+        .form-container
+          label(for='email') E-mail
+          div.error!= errors.email ? errors.email.msg : null
+          input#email(name='email', type='email', placeholder='paulien.lous@hva.nl', value=person.email)
+
+          label(for='password') Wachtwoord
+          div.error!= errors.password ? errors.password.msg : null
+          input#password(name='password', type='password', required='', value=person.password)
+      .button-container
+        button.inloggen(type='submit') Inloggen

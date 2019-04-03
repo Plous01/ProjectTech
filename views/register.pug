@@ -1,0 +1,93 @@
+doctype html
+html(lang='nl')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Aanmelden
+    link(rel='stylesheet', href='/css/form.css')
+  body
+    // Aanmeldformulier
+    h1.aanmelden Aanmelden
+
+    form(action='/register', method='POST', novalidate='')
+      fieldset
+        legend Persoonlijk
+        .form-container
+          label(for='firstname') Voornaam
+          div.error!= errors.firstname ? errors.firstname.msg : null
+          input#firstname(name='firstname', type='text', placeholder='Paulien', required='', value=person.firstname)
+
+          label(for='lastname')  Achternaam
+          div.error!= errors.lastname ? errors.lastname.msg : null
+          input#lastname(name='lastname', type='text', placeholder='Lous', required='', value=person.lastname)
+          
+          label(for='age') Leeftijd
+          div.error!= errors.age ? errors.age.msg : null
+          input#age(type='text', name='age', value=person.age)
+          
+          label(for='gender') Gender
+          span
+            input(type='radio', name='gender', value='M')
+            |  Man
+          span
+            input(type='radio', name='gender', value='F', checked='')
+            |  Vrouw
+
+          label(for='description')  Beschrijving
+          div.error!= errors.description ? errors.description.msg : null
+          textarea(name='description', placeholder='Omschrijf jezelf', rows='8', value=person.description)
+
+      fieldset
+        legend Account
+        .form-container
+
+          label(for='email') E-mail
+          div.error!= errors.email ? errors.email.msg : null
+          input#email(name='email', type='email', placeholder='paulien.lous@hva.nl', value=person.email)
+
+          label(for='password') Wachtwoord
+          div.error!= errors.password ? errors.password.msg : null
+          input#password(name='password', type='password', required='', value=person.password)
+
+          label(for='passwordcheck') Verifieer wachtwoord
+          div.error!= errors.passwordcheck ? errors.passwordcheck.msg : null
+          input#passwordcheck(name='passwordcheck', type='password', required='', value=person.passwordcheck)
+
+      fieldset
+        legend Sport
+        div.error!= errors.sports ? errors.sports.msg : null
+        div
+          label(for='sport') Ik beoefen de volgende sport(en)
+          br
+          input(type='checkbox', name='fitness', checked=person.sports.fitness=="on")
+          |  Fitness
+          input(type='checkbox', name='gymnastiek', checked=person.sports.gymnastiek=="on")
+          |  Gymnastiek
+          input(type='checkbox', name='hardlopen', checked=person.sports.hardlopen=="on")
+          |  Hardlopen
+          input(type='checkbox', name='atletiek', checked=person.sports.atletiek=="on")
+          |  Atletiek
+          input(type='checkbox', name='hockey', checked=person.sports.hockey=="on")
+          |  Hockey
+          input(type='checkbox', name='honkbal', checked=person.sports.honkbal=="on")
+          |  Honkbal
+          input(type='checkbox', name='paardensport', checked=person.sports.paardensport=="on")
+          |  Paardensport
+          input(type='checkbox', name='tennis', checked=person.sports.tennis=="on")
+          |  Tennis
+          input(type='checkbox', name='schaatsen', checked=person.sports.schaatsen=="on")
+          |  Schaatsen
+          input(type='checkbox', name='voetbal', checked=person.sports.voetbal=="on")
+          |  Voetbal
+          input(type='checkbox', name='volleybal', checked=person.sports.volleybal=="on")
+          |  Volleybal
+          input(type='checkbox', name='waterpolo', checked=person.sports.waterpolo=="on")
+          |  Waterpolo
+          input(type='checkbox', name='zwemmen', checked=person.sports.zwemmen=="on")
+          |  Zwemmen
+      .button-container
+        button.register Aanmelden
+        button.cancel Annuleren
+    footer
+      p
+        | Copyright Paulien©

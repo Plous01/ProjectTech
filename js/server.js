@@ -6,6 +6,10 @@ const MongoClient = require("mongodb").MongoClient; // source https://www.mongod
 const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
 const session = require("express-session"); //source https://www.npmjs.com/package/express-session
+const {
+    check,
+    validationResult
+} = require('express-validator/check');
 
 // Create express application
 const app = express();
@@ -105,6 +109,7 @@ app.get("/persons", (request, response) => {
         };
     }
 
+
     db.collection("persons").find(filter).toArray((error, persons) => {
         response.render("persons", {
             persons: persons,
@@ -113,8 +118,28 @@ app.get("/persons", (request, response) => {
     });
 })
 
-app.post("/register", (request, response) => {
-    console.log("Register new person...");
+
+
+app.get("/register", (request, response) => {
+    response.render("register", {
+        person: {
+            sports: {}
+        },
+        errors: []
+    });
+})
+
+app.post("/register", [
+    check("firstname").isEmpty(false).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
+    check("lastname").isEmpty(false).withMessage("Oeps! Je bent je achternaam vergeten"),
+    check("age").isInt({
+        gt: 17 //greater than
+    }).withMessage("Vul alsjeblieft je leeftijd is, de minimumleeftijd is 17 jaar"),
+    check("email").isEmail().withMessage("Dit is helaas geen geldige e-mail"),
+    check("description").isEmpty(false).withMessage("Probeer toch even een korte beschrijving van jezelf te geven, wees creatief"),
+    check("sports").isEmpty(false).withMessage("Welke sport(en) beoefen je?"),
+    check("password").isEmpty(false).withMessage("Vul alsjeblieft een wachtwoord in")
+], (request, response) => {
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
@@ -123,14 +148,18 @@ app.post("/register", (request, response) => {
     let email = request.body.email;
     let description = request.body.description;
 
-    let selectedSports = [];
+    let selectedSports = []; // for database
+    let submittedSports = {}; // for register form (to remember which checkboxes are checked)
     for (let sport of sports) {
         if (request.body[sport] === "on") {
             selectedSports.push(sport);
+            submittedSports[sport] = "on";
+        } else {
+            submittedSports[sport] = "off";
         }
     }
 
-    db.collection("persons").insertOne({
+    let person = {
         firstname: firstname,
         lastname: lastname,
         age: age,
@@ -138,8 +167,21 @@ app.post("/register", (request, response) => {
         email: email,
         password: password,
         description: description,
-        sports: selectedSports
-    }, (error, person) => {
+        sports: submittedSports
+    };
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        console.log(errors.mapped());
+        response.render("register", {
+            person: person,
+            errors: errors.mapped()
+        });
+        return;
+    }
+
+    person.sports = selectedSports;
+
+    db.collection("persons").insertOne(person, (error, person) => {
         response.redirect("/");
     })
 
