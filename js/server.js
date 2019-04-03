@@ -93,6 +93,8 @@ app.get("/persons", (request, response) => {
         return;
     }
 
+
+    
     let selectedSports = [];
     for (let sport of sports) {
         if (request.query[sport] === "on") {
@@ -138,13 +140,19 @@ app.post("/register", [
     check("email").isEmail().withMessage("Dit is helaas geen geldige e-mail"),
     check("description").isEmpty(false).withMessage("Probeer toch even een korte beschrijving van jezelf te geven, wees creatief"),
     check("sports").isEmpty(false).withMessage("Welke sport(en) beoefen je?"),
-    check("password").isEmpty(false).withMessage("Vul alsjeblieft een wachtwoord in")
+    check("password").isLength({
+        min: 5
+    }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn"),
+    check("passwordcheck","Wachtwoorden moeten gelijk zijn")
+        .custom((value, { req }) => value == req.body.password)
+
 ], (request, response) => {
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
     let gender = request.body.gender;
     let password = request.body.password;
+    let passwordCheck = request.body.passwordCheck;
     let email = request.body.email;
     let description = request.body.description;
 
@@ -166,12 +174,14 @@ app.post("/register", [
         gender: gender,
         email: email,
         password: password,
+        passwordcheck: passwordcheck,
         description: description,
         sports: submittedSports
     };
+
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
-        console.log(errors.mapped());
+        //console.log(errors.mapped());
         response.render("register", {
             person: person,
             errors: errors.mapped()
@@ -179,7 +189,9 @@ app.post("/register", [
         return;
     }
 
+    // Make sure the right properties are send to the database
     person.sports = selectedSports;
+    delete person.passwordcheck;
 
     db.collection("persons").insertOne(person, (error, person) => {
         response.redirect("/");
@@ -187,17 +199,40 @@ app.post("/register", [
 
 })
 
-app.post("/login", (request, response) => {
-    console.log("Person login...");
+app.get("/login", (request, response) => {
+    response.render("login", { errors: {}, person: {}});
+})
+
+app.post("/login", [
+    check("email").isEmail().withMessage("Dit is helaas geen geldige e-mail"),
+    check("password").isLength({
+        min: 5
+    }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn")
+],(request, response) => {
     let loginEmail = request.body.email;
     let loginPassword = request.body.password;
 
-    db.collection("persons").findOne({
+    let loginPerson = {
         email: loginEmail,
         password: loginPassword
-    }, (error, person) => {
+    }
+
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        //console.log(errors.mapped());
+        response.render("login", {
+            person: loginPerson,
+            errors: errors.mapped()
+        });
+        return;
+    }    
+
+    db.collection("persons").findOne(loginPerson, (error, person) => {
         if (error || person == null) {
-            response.redirect("/login.html");
+            response.render("login", {
+                person: loginPerson,
+                errors: { loginError : "Login mislukt! Probeer het nog een keer"}
+            });
         } else {
             request.session.personId = person._id;
             response.redirect("/persons");

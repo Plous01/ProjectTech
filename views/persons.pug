@@ -59,8 +59,9 @@ html(lang='nl')
             li
               input#zwemmen(type='checkbox' name='zwemmen', checked=request.query.zwemmen=="on")
               label(for='zwemmen') Zwemmen
-          button(type=submit value=Submit) Filter
-          button(type=reset value=Reset) Reset
+          button(type='submit' value=Submit) Filter
+        form(action='/persons')
+          button(type='submit' value=Reset) Reset
 
       section.persons
           -for(var i = 0; i < persons.length; i++)

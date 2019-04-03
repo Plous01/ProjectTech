@@ -8,7 +8,9 @@ html(lang='en')
     title Inloggen
   body
     h1.aanmelden Inloggen
+
     form(action='/login', method='POST', novalidate='')
+      div.error!= errors.loginError ? errors.loginError : null
       fieldset
         legend Persoonlijk
         .form-container
