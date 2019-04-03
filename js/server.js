@@ -72,6 +72,26 @@ app.get("/person/:id", (request, response) => {
     });
 })
 
+app.get("/person/:id/edit", (request, response) => {
+    // Check if user is logged in
+    if (!request.session.personId) {
+        response.redirect("/");
+        return;
+    }
+
+    let personId = request.params.id;
+    let objectId = new ObjectId(personId);
+    db.collection("persons").findOne({
+        "_id": objectId
+    }, (error, person) => {
+        if (error || person == null) {
+            response.status(404).send("Not found");
+        } else {
+            response.render("editperson", person);
+        }
+    });
+})
+
 app.get("/account", (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
