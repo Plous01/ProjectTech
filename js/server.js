@@ -68,6 +68,7 @@ app.get("/person/:id", (request, response) => {
             response.status(404).send("Not found");
         } else {
             response.render("person", person);
+            console.log(objectId);
         }
     });
 })
@@ -80,14 +81,15 @@ app.get("/person/:id/edit", (request, response) => {
     }
 
     let personId = request.params.id;
-    let objectId = new ObjectId(personId);
+
     db.collection("persons").findOne({
-        "_id": objectId
+        "_id": ObjectId(personId)
     }, (error, person) => {
         if (error || person == null) {
             response.status(404).send("Not found");
         } else {
             response.render("editperson", person);
+            console.log(personId);
         }
     });
 })
@@ -175,9 +177,6 @@ app.post("/update", (request, response) => {
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
-    console.log(personId);
-    console.log(firstname);
-    console.log(lastname);
 
     let selectedSports = [];
     for (let sport of sports) {
@@ -186,15 +185,15 @@ app.post("/update", (request, response) => {
         }
     }
 
-    db.collection("persons").updateOne({_id: personId},{
-        firstname: firstname,
-        lastname: lastname,
-        age: age,
-        gender: gender,
-        email: email,
-        password: password,
-        description: description,
-        sports: selectedSports
+    db.collection("persons").updateOne({"_id": personId},{
+        $set: {firstname: firstname},
+        $set: {lastname: lastname},
+        $set: {age: age},
+        $set: {gender: gender},
+        $set: {email: email},
+        $set: {password: password},
+        $set: {description: description},
+        $set: {sports: selectedSports}
     }, (error, person) => {
         console.log("Update worked");
         console.log(firstname);
