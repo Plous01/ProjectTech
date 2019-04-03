@@ -6,18 +6,94 @@ style
     include ../public/css/index.css
 
 body
-form
-h2 Voornaams
-<input value='#{firstname}'/>
+//- form
+//- h2 Voornaams
+//- <input value='#{firstname}'/>
 
-h2 Achternaam
-<input value='#{lastname}'/>
+//- h2 Achternaam
+//- <input value='#{lastname}'/>
 
-h2 Leeftijd
-<input value='#{age}'/>
+//- h2 Leeftijd
+//- <input value='#{age}'/>
 
-h2 Geslachr
-<input value='#{gender}'/>
+//- h2 Geslacht
+//- <input value='#{gender}'/>
 
-h2 Sporten
-<input value='#{sports}'/>
+//- h2 Sporten
+//- each sport in sports
+//-     <input type="checkbox" value="#{sport}"/>
+
+form(action='/update' method='POST' novalidate='')
+  fieldset
+    legend Persoonlijk
+    .form-container
+      label(for='firstname') Voornaam
+      <input name='firstname' value='#{firstname}'/>
+
+      label(for='lastname')  Achternaam
+      <input name='lastname' value='#{lastname}'/>
+
+      label(for='age') Leeftijd
+      <input name="age" value='#{age}'/>
+
+      label(for='gender') Gender
+      span
+        <input name='gender' type='radio' value='#{gender}'/>
+        |  Man
+      span
+        <input name='gender' type='radio' value='#{gender}'/>
+        |  Vrouw
+
+      textarea(name='description' placeholder='Omschrijf jezelf' value='#{description}' rows='8')
+
+  fieldset
+    legend Account
+    .form-container
+      label(for='email') E-mail
+      <input name='email' value='#{email}'/>
+      label(for='password') Wachtwoord
+      <input value='#{password}'/>
+
+
+  fieldset
+    legend Huidig geselecteerde sporten
+    each sport in sports
+        div
+            <input value="#{sport}"/>
+
+
+  form(action='/aanmelden' validate='')
+    fieldset
+      legend Sport
+      div
+        label(for='firstname') Ik beoefen de volgende sport(en)
+        br
+        input(type='checkbox' name='fitness')
+        |  Fitness
+        input(type='checkbox' name='gymnastiek')
+        |  Gymnastiek
+        input(type='checkbox' name='hardlopen')
+        |  Hardlopen 
+        input(type='checkbox' name='atletiek')
+        |  Atletiek
+        input(type='checkbox' name='hockey')
+        |  Hockey
+        input(type='checkbox' name='honkbal')
+        |  Honkbal 
+        input(type='checkbox' name='paardensport')
+        |  Paardensport
+        input(type='checkbox' name='tennis')
+        |  Tennis
+        input(type='checkbox' name='schaatsen')
+        |  Schaatsen 
+        input(type='checkbox' name='voetbal')
+        |  Voetbal
+        input(type='checkbox' name='volleybal')
+        |  Volleybal
+        input(type='checkbox' name='waterpolo')
+        |  Waterpolo
+        input(type='checkbox' name='zwemmen')
+        |  Zwemmen
+
+    .button-container
+      button.register Update je profiel

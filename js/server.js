@@ -165,6 +165,44 @@ app.post("/register", (request, response) => {
 
 })
 
+app.post("/update", (request, response) => {
+    console.log("Updating person...");
+    let personId = request.session.personId;
+    let firstname = request.body.firstname;
+    let lastname = request.body.lastname;
+    let age = request.body.age;
+    let gender = request.body.gender;
+    let password = request.body.password;
+    let email = request.body.email;
+    let description = request.body.description;
+    console.log(personId);
+    console.log(firstname);
+    console.log(lastname);
+
+    let selectedSports = [];
+    for (let sport of sports) {
+        if (request.body[sport] === "on") {
+            selectedSports.push(sport);
+        }
+    }
+
+    db.collection("persons").updateOne({_id: personId},{
+        firstname: firstname,
+        lastname: lastname,
+        age: age,
+        gender: gender,
+        email: email,
+        password: password,
+        description: description,
+        sports: selectedSports
+    }, (error, person) => {
+        console.log("Update worked");
+        console.log(firstname);
+        response.redirect("/person/" + personId);
+    })
+
+})
+
 app.post("/login", (request, response) => {
     console.log("Person login...");
     let loginEmail = request.body.email;
