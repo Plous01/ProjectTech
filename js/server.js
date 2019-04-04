@@ -6,6 +6,7 @@ const MongoClient = require("mongodb").MongoClient; // source https://www.mongod
 const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
 const session = require("express-session"); //source https://www.npmjs.com/package/express-session
+const multer = require('multer')
 
 // Create express application
 const app = express();
@@ -28,6 +29,11 @@ app.use(session({
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET
 }));
+
+//Upload a photo
+let upload = multer({
+    dest: 'public/uploads/'
+  })
 
 // Intialize connection to MongoDB database
 let db = null;
@@ -113,8 +119,9 @@ app.get("/persons", (request, response) => {
     });
 })
 
-app.post("/register", (request, response) => {
+app.post("/register", upload.single('profilePic'), (request, response) => {
     console.log("Register new person...");
+
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
@@ -122,6 +129,7 @@ app.post("/register", (request, response) => {
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
+    let profilePic = request.body.profilePic;
 
     let selectedSports = [];
     for (let sport of sports) {
@@ -138,11 +146,11 @@ app.post("/register", (request, response) => {
         email: email,
         password: password,
         description: description,
-        sports: selectedSports
+        sports: selectedSports,
+        profilePic: request.file ? request.file.filename : null
     }, (error, person) => {
         response.redirect("/");
     })
-
 })
 
 app.post("/login", (request, response) => {
