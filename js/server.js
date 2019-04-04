@@ -131,7 +131,7 @@ app.get("/register", (request, response) => {
 })
 
 app.post("/register", [
-    check("firstname").isLength({ min: 5 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
+    check("firstname").isLength({ min: 1 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
     check("lastname").isLength({ min: 1 }).withMessage("Oeps! Je bent je achternaam vergeten"),
     check("age").isInt({
         gt: 17 //greater than
