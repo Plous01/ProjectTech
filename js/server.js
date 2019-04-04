@@ -60,6 +60,7 @@ app.get("/person/:id", (request, response) => {
     }
 
     let personId = request.params.id;
+    console.log(personId);
     let objectId = new ObjectId(personId);
     db.collection("persons").findOne({
         "_id": objectId
@@ -68,19 +69,20 @@ app.get("/person/:id", (request, response) => {
             response.status(404).send("Not found");
         } else {
             response.render("person", person);
-            console.log(objectId);
+            console.log("Retrieving id of person " + objectId);
         }
     });
 })
 
-app.get("/person/:id/edit", (request, response) => {
+app.get("/person/edit/:id", (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");
         return;
     }
-
+    
     let personId = request.params.id;
+    console.log('Edit'+ personId);
 
     db.collection("persons").findOne({
         "_id": ObjectId(personId)
@@ -89,7 +91,7 @@ app.get("/person/:id/edit", (request, response) => {
             response.status(404).send("Not found");
         } else {
             response.render("editperson", person);
-            console.log(personId);
+            console.log("Taking person Id to edit page: " + personId);
         }
     });
 })
@@ -168,8 +170,9 @@ app.post("/register", (request, response) => {
 })
 
 app.post("/update", (request, response) => {
-    console.log("Updating person...");
+    console.log("Updating person to database...");
     let personId = request.session.personId;
+    console.log(personId);
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
@@ -177,6 +180,7 @@ app.post("/update", (request, response) => {
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
+    console.log(gender);
 
     let selectedSports = [];
     for (let sport of sports) {
@@ -185,18 +189,21 @@ app.post("/update", (request, response) => {
         }
     }
 
-    db.collection("persons").updateOne({"_id": personId},{
-        $set: {firstname: firstname},
-        $set: {lastname: lastname},
-        $set: {age: age},
-        $set: {gender: gender},
-        $set: {email: email},
-        $set: {password: password},
-        $set: {description: description},
-        $set: {sports: selectedSports}
-    }, (error, person) => {
-        console.log("Update worked");
-        console.log(firstname);
+    db.collection("persons").updateOne({"_id": ObjectId(personId)},{
+        $set: {
+            firstname: firstname,
+            lastname: lastname,
+            age: age,
+            gender: gender,
+            email: email,
+            description: description,
+            password: password,
+            sports: selectedSports
+        }
+    }, {
+        upsert: true
+    },
+     (error, person) => {
         response.redirect("/person/" + personId);
     })
 
