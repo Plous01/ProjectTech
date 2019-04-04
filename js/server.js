@@ -93,8 +93,6 @@ app.get("/persons", (request, response) => {
         return;
     }
 
-
-    
     let selectedSports = [];
     for (let sport of sports) {
         if (request.query[sport] === "on") {
@@ -125,6 +123,7 @@ app.get("/persons", (request, response) => {
 app.get("/register", (request, response) => {
     response.render("register", {
         person: {
+            gender: "F",
             sports: {}
         },
         errors: []
@@ -132,27 +131,25 @@ app.get("/register", (request, response) => {
 })
 
 app.post("/register", [
-    check("firstname").isEmpty(false).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
-    check("lastname").isEmpty(false).withMessage("Oeps! Je bent je achternaam vergeten"),
+    check("firstname").isLength({ min: 5 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
+    check("lastname").isLength({ min: 1 }).withMessage("Oeps! Je bent je achternaam vergeten"),
     check("age").isInt({
         gt: 17 //greater than
     }).withMessage("Vul alsjeblieft je leeftijd is, de minimumleeftijd is 17 jaar"),
     check("email").isEmail().withMessage("Dit is helaas geen geldige e-mail"),
-    check("description").isEmpty(false).withMessage("Probeer toch even een korte beschrijving van jezelf te geven, wees creatief"),
-    check("sports").isEmpty(false).withMessage("Welke sport(en) beoefen je?"),
+    check("description").not().isEmpty().withMessage("Probeer toch even een korte beschrijving van jezelf te geven, wees creatief"),
     check("password").isLength({
         min: 5
     }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn"),
     check("passwordcheck","Wachtwoorden moeten gelijk zijn")
         .custom((value, { req }) => value == req.body.password)
-
-], (request, response) => {
+], (request, response) => {    
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
     let gender = request.body.gender;
     let password = request.body.password;
-    let passwordCheck = request.body.passwordCheck;
+    let passwordcheck = request.body.passwordcheck;
     let email = request.body.email;
     let description = request.body.description;
 
@@ -179,12 +176,15 @@ app.post("/register", [
         sports: submittedSports
     };
 
-    const errors = validationResult(request);
-    if (!errors.isEmpty()) {
-        //console.log(errors.mapped());
+    const errors = validationResult(request).mapped();
+    if (selectedSports.length == 0) {
+        errors["sports"] = { msg: "Vul een of meerdere sporten in"};
+    }
+
+    if (Object.keys(errors).length>0) {
         response.render("register", {
             person: person,
-            errors: errors.mapped()
+            errors: errors
         });
         return;
     }

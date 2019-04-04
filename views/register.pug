@@ -27,15 +27,16 @@ html(lang='nl')
           
           label(for='gender') Gender
           span
-            input(type='radio', name='gender', value='M')
+            input(type='radio', name='gender', value='M', checked=person.gender=='M')
             |  Man
           span
-            input(type='radio', name='gender', value='F', checked='')
+            input(type='radio', name='gender', value='F', checked=person.gender=='F')
             |  Vrouw
 
           label(for='description')  Beschrijving
           div.error!= errors.description ? errors.description.msg : null
-          textarea(name='description', placeholder='Omschrijf jezelf', rows='8', value=person.description)
+          textarea(name='description', placeholder='Omschrijf jezelf', rows='8')
+            | #{person.description}
 
       fieldset
         legend Account
