@@ -13,7 +13,7 @@
     <!--Aanmeldformulier-->
     <h1 class="aanmelden">Aanmelden</h1>
 
-    <form action="/register" method="POST" enctype="multipart/form-data">
+    <form action="/register" method="POST" novalidate>
         <fieldset>
             <legend>Persoonlijk</legend>
             <div class="form-container">
@@ -39,8 +39,7 @@
                 <input name="password" id="password" type="password" required>
                 <label for="passwordcheck">Verifieer wachtwoord</label>
                 <input name="passwordcheck" id="passwordcheck" type="password" required>
-                <label for="profilePic">Profile photo</label>
-                <input type="file" name="profilePic" value="Upload your photo" accept=image/*>
+
             </div>
         </fieldset>
 
