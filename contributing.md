@@ -32,6 +32,24 @@ _Working on your first Pull Request? You can learn and follow a quick tutorial i
 
 ### Steps
 1. Fork the Amor repo
-2. clone the repo with `git clone`
+2. clone the repo with `git clone` to work locally
 3. Do some work
 4. Issue a pull request
+
+# Bug report
+__If you find a security vulnerability, do NOT open an issue. Email Chris at 500756420@hva.nl instead.__
+
+### How to file a bug report
+_When filing an issue, make sure to answer these five questions:_
+1 What version of Amor are you using?
+2 What operating system and processor architecture are you using?
+3 What did you do?
+4 What did you expect to see?
+5 What did you see instead? 
+
+# Code review process
+The Amor dev team has weekly meetings and will be reviewing pull requests. After feedback rounds they will assess the PR's. PR's violating our guidelines will not be assessed. After reviewing the PR expect a response within a week.  
+
+### Sources used for this document
+https://github.com/nayafia/contributing-template/blob/master/CONTRIBUTING-template.md
+https://github.com/HandBrake/HandBrake-docs/blob/master/CONTRIBUTING.markdown
