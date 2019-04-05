@@ -3,25 +3,11 @@ html
     title Person
 
 style
-    include ../public/css/index.css
+    include ../public/css/form.css
 
 body
-//- form
-//- h2 Voornaams
-//- <input value='#{firstname}'/>
 
-//- h2 Achternaam
-//- <input value='#{lastname}'/>
-
-//- h2 Leeftijd
-//- <input value='#{age}'/>
-
-//- h2 Geslacht
-//- <input value='#{gender}'/>
-
-//- h2 Sporten
-//- each sport in sports
-//-     <input type="checkbox" value="#{sport}"/>
+h1 Edit je profiel
 
 form(action='/update' method='POST' novalidate='')
   fieldset
@@ -44,7 +30,8 @@ form(action='/update' method='POST' novalidate='')
         <input name='gender' type='radio' value='#{gender}'/>
         |  Vrouw
 
-      textarea(name='description' placeholder='Omschrijf jezelf' value='#{description}' rows='8')
+      textarea(name='description' placeholder='Omschrijf jezelf' rows='8')
+        | #{description}
 
   fieldset
     legend Account
@@ -59,7 +46,8 @@ form(action='/update' method='POST' novalidate='')
     legend Huidig geselecteerde sporten
     each sport in sports
         div
-            <input value="#{sport}"/>
+            <input type="checkbox" checked value="#{sport}"/>
+            | #{sport}
 
 
   form(action='/aanmelden' validate='')
@@ -95,5 +83,6 @@ form(action='/update' method='POST' novalidate='')
         input(type='checkbox' name='zwemmen')
         |  Zwemmen
 
-    .button-container
-      button.register Update je profiel
+    div.button-container
+      button.register(style='height: 50;') Update je profiel
+        
