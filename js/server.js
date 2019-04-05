@@ -14,6 +14,7 @@ const app = express();
 dotenv.config();
 
 // Add body parser (used when a form is POST-ed)
+app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
     extended: true
 }));
@@ -60,7 +61,6 @@ app.get("/person/:id", (request, response) => {
     }
 
     let personId = request.params.id;
-    console.log(personId);
     let objectId = new ObjectId(personId);
     db.collection("persons").findOne({
         "_id": objectId
@@ -69,7 +69,6 @@ app.get("/person/:id", (request, response) => {
             response.status(404).send("Not found");
         } else {
             response.render("person", person);
-            console.log("Retrieving id of person " + objectId);
         }
     });
 })
@@ -82,7 +81,6 @@ app.get("/person/edit/:id", (request, response) => {
     }
     
     let personId = request.params.id;
-    console.log('Edit'+ personId);
 
     db.collection("persons").findOne({
         "_id": ObjectId(personId)
@@ -91,7 +89,6 @@ app.get("/person/edit/:id", (request, response) => {
             response.status(404).send("Not found");
         } else {
             response.render("editperson", person);
-            console.log("Taking person Id to edit page: " + personId);
         }
     });
 })
@@ -142,10 +139,10 @@ app.post("/register", (request, response) => {
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
-    let gender = request.body.gender;
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
+    let gender = request.body.gender;
 
     let selectedSports = [];
     for (let sport of sports) {
@@ -164,15 +161,14 @@ app.post("/register", (request, response) => {
         description: description,
         sports: selectedSports
     }, (error, person) => {
+        console.log(gender);
         response.redirect("/");
     })
 
 })
 
 app.post("/update", (request, response) => {
-    console.log("Updating person to database...");
     let personId = request.session.personId;
-    console.log(personId);
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
@@ -180,7 +176,6 @@ app.post("/update", (request, response) => {
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
-    console.log(gender);
 
     let selectedSports = [];
     for (let sport of sports) {
@@ -210,7 +205,6 @@ app.post("/update", (request, response) => {
 })
 
 app.post("/login", (request, response) => {
-    console.log("Person login...");
     let loginEmail = request.body.email;
     let loginPassword = request.body.password;
 

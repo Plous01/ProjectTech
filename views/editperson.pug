@@ -23,13 +23,11 @@ form(action='/update' method='POST' novalidate='')
       <input name="age" value='#{age}'/>
 
       label(for='gender') Gender
-      span
-        <input name='gender' type='radio' value='#{gender}'/>
-        |  Man
-      span
-        <input name='gender' type='radio' value='#{gender}'/>
-        |  Vrouw
-
+      each geslacht in gender 
+        select(name='gender')
+          option(value='M') Man
+          option(value='V') Vrouw
+      
       textarea(name='description' placeholder='Omschrijf jezelf' rows='8')
         | #{description}
 
