@@ -41,11 +41,11 @@ __If you find a security vulnerability, do NOT open an issue. Email Chris at 500
 
 ### How to file a bug report
 _When filing an issue, make sure to answer these five questions:_
-1 What version of Amor are you using?
-2 What operating system and processor architecture are you using?
-3 What did you do?
-4 What did you expect to see?
-5 What did you see instead? 
+1. What version of Amor are you using?
+2. What operating system and processor architecture are you using?
+3. What did you do?
+4. What did you expect to see?
+5. What did you see instead? 
 
 # Code review process
 The Amor dev team has weekly meetings and will be reviewing pull requests. After feedback rounds they will assess the PR's. PR's violating our guidelines will not be assessed. After reviewing the PR expect a response within a week.  
