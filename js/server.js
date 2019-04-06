@@ -167,7 +167,7 @@ app.post("/register", (request, response) => {
 
 })
 
-app.post("/update", (request, response) => {
+app.post("/update", (request, response, next) => {
     let personId = request.session.personId;
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
@@ -176,13 +176,18 @@ app.post("/update", (request, response) => {
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
+    let selectedSports = request.session.sports
+    console.log(selectedSports);
 
-    let selectedSports = [];
+     let newSports = [];
+
     for (let sport of sports) {
         if (request.body[sport] === "on") {
-            selectedSports.push(sport);
+            newSports.push(sport);
         }
     }
+
+    let updateSports = [].concat(newSports + selectedSports);
 
     db.collection("persons").updateOne({"_id": ObjectId(personId)},{
         $set: {
@@ -193,12 +198,13 @@ app.post("/update", (request, response) => {
             email: email,
             description: description,
             password: password,
-            sports: selectedSports
+            sports: updateSports
         }
     }, {
         upsert: true
     },
      (error, person) => {
+        console.log(updateSports);
         response.redirect("/person/" + personId);
     })
 
@@ -216,6 +222,7 @@ app.post("/login", (request, response) => {
             response.redirect("/login.html");
         } else {
             request.session.personId = person._id;
+            request.session.sports = person.sports;
             response.redirect("/persons");
         }
     });
