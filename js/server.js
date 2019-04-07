@@ -176,8 +176,7 @@ app.post("/update", (request, response, next) => {
     let password = request.body.password;
     let email = request.body.email;
     let description = request.body.description;
-    let selectedSports = request.session.sports
-    console.log(selectedSports);
+    let selectedSports = request.session.sports;
 
      let newSports = [];
 
@@ -187,7 +186,8 @@ app.post("/update", (request, response, next) => {
         }
     }
 
-    let updateSports = [].concat(newSports + selectedSports);
+    let updatedSports = [].concat(newSports,selectedSports);
+
 
     db.collection("persons").updateOne({"_id": ObjectId(personId)},{
         $set: {
@@ -198,14 +198,14 @@ app.post("/update", (request, response, next) => {
             email: email,
             description: description,
             password: password,
-            sports: updateSports
+            sports: updatedSports
         }
     }, {
         upsert: true
     },
      (error, person) => {
-        console.log(updateSports);
-        response.redirect("/person/" + personId);
+         console.log(updatedSports);
+         response.redirect("/person/" + personId);
     })
 
 })
