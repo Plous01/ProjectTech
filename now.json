@@ -1,0 +1,11 @@
+{
+    "version": 2,
+    "name": "amor",
+    "builds": [
+        { "src" : "**/*.js", "use": "@now/node" },
+        { "src" : "./public/**/*.*", "use": "@now/static" },
+        { "src" : "./views/**/*.*", "use": "@now/static" },
+        { "src" : ".env", "use": "@now/static"},
+        { "src" : "package.json", "use": "@now/static-build"}
+    ]
+}

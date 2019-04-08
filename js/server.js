@@ -82,6 +82,27 @@ app.get("/person/:id", (request, response) => {
     });
 })
 
+app.get("/person/edit/:id", (request, response) => {
+    // Check if user is logged in
+    if (!request.session.personId) {
+        response.redirect("/");
+        return;
+    }
+    
+    let personId = request.params.id;
+
+    db.collection("persons").findOne({
+        "_id": ObjectId(personId)
+    }, (error, person) => {
+        if (error || person == null) {
+            response.status(404).send("Not found");
+        } else {
+            response.render("editperson", person);
+        }
+    });
+    console.log(request.body[sports]);
+})
+
 app.get("/account", (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
@@ -204,6 +225,61 @@ app.post("/register", upload.single('profilePic'), [
 
 })
 
+app.post("/update", (request, response, next) => {
+    let personId = request.session.personId;
+    let firstname = request.body.firstname;
+    let lastname = request.body.lastname;
+    let age = request.body.age;
+    let gender = request.body.gender;
+    let password = request.body.password;
+    let email = request.body.email;
+    let description = request.body.description;
+    let selectedSports = request.session.sports;
+
+     let newSports = [];
+
+    for (let sport of sports) {
+        if (request.body[sport] === "on") {
+            newSports.push(sport);
+        }
+    }
+
+
+    let updatedSports = [].concat(newSports,selectedSports);
+
+    // for (let sport of updatedSports) {
+    //     if (request.body[sport] === "off") {
+    //         db.collection("persons").updateOne({
+    //             "_id": ObjectId(personId)
+    //         }, {
+    //             $pull: {
+    //                 "sports": {$in: [sport]}
+    //             }
+    //         })
+    //     }
+    // }
+    console.log(updatedSports);
+
+    db.collection("persons").updateOne({"_id": ObjectId(personId)},{
+        $set: {
+            firstname: firstname,
+            lastname: lastname,
+            age: age,
+            gender: gender,
+            email: email,
+            description: description,
+            password: password,
+            sports: updatedSports
+        }
+    }, {
+        upsert: true
+    },
+     (error, person) => {
+         response.redirect("/person/" + personId);
+    })
+
+})
+
 app.get("/login", (request, response) => {
     response.render("login", { errors: {}, person: {}});
 })
@@ -240,6 +316,7 @@ app.post("/login", [
             });
         } else {
             request.session.personId = person._id;
+            request.session.person = person.sports;
             response.redirect("/persons");
         }
     });
