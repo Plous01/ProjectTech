@@ -58,6 +58,8 @@ let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
     "voetbal", "volleybal", "waterpolo", "zwemmen"
 ];
 
+console.log(sports);
+
 app.get("/person/:id", (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
