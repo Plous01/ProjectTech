@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -78,5 +79,87 @@
 
 </body>
 
+>>>>>>> development
+=======
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aanmelden</title>
+    <link rel="stylesheet" href="/css/form.css">
+</head>
+
+<body>
+    <!--Aanmeldformulier-->
+    <h1 class="aanmelden">Aanmelden</h1>
+
+    <form action="/register" method="POST" novalidate enctype="multipart/form-data">
+        <fieldset>
+            <legend>Persoonlijk</legend>
+            <div class="form-container">
+                <label for="firstname">Voornaam</label>
+                <input name="firstname" id="firstname" type="text" placeholder="Paulien" required />
+                <label for="lastname"> Achternaam</label>
+                <input name="lastname" id="lastname" type="text" placeholder="Lous" required />
+                <label for="age">Leeftijd</label>
+                <input type="text" id="age" name="age">
+                <label for="gender">Gender</label>
+                <span> <input type="radio" name="gender" value="M"> Man </span>
+                <span> <input type="radio" name="gender" value="F" checked> Vrouw </span>
+                <textarea name="description" placeholder="Omschrijf jezelf" rows="8"></textarea>
+                <label for="profilePic">Upload je photo</label>
+                <input type="file" name="profilePic" value="Upload your photo" accept=image/*>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Account</legend>
+            <div class="form-container">
+                <label for="email">E-mail</label>
+                <input name="email" id="email" type="email" placeholder="paulien.lous@hva.nl" required>
+                <label for="password">Wachtwoord</label>
+                <input name="password" id="password" type="password" required>
+                <label for="passwordcheck">Verifieer wachtwoord</label>
+                <input name="passwordcheck" id="passwordcheck" type="password" required>
+
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Sport</legend>
+            <div>
+                <label for="firstname">Ik beoefen de volgende sport(en)</label><br>
+                <input type="checkbox" name="fitness"> Fitness
+                <input type="checkbox" name="gymnastiek"> Gymnastiek
+                <input type="checkbox" name="hardlopen"> Hardlopen
+                <input type="checkbox" name="atletiek"> Atletiek
+                <input type="checkbox" name="hockey"> Hockey
+                <input type="checkbox" name="honkbal"> Honkbal
+                <input type="checkbox" name="paardensport"> Paardensport
+                <input type="checkbox" name="tennis"> Tennis
+                <input type="checkbox" name="schaatsen"> Schaatsen
+                <input type="checkbox" name="voetbal"> Voetbal
+                <input type="checkbox" name="volleybal"> Volleybal
+                <input type="checkbox" name="waterpolo"> Waterpolo
+                <input type="checkbox" name="zwemmen"> Zwemmen
+            </div>
+        </fieldset>
+
+        <div class="button-container">
+            <button class="register">Aanmelden</button>
+            <button class="cancel">Annuleren</button>
+        </div>
+    </form>
+
+    <footer>
+        <p>
+            Copyright Paulien©
+        </p>
+    </footer>
+
+
+</body>
 >>>>>>> development
 </html>

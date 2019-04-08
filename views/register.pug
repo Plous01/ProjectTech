@@ -9,7 +9,7 @@ html(lang='nl')
     // Aanmeldformulier
     h1.aanmelden Aanmelden
 
-    form(action='/register', method='POST', novalidate='')
+    form(action='/register', method='POST', novalidate='', enctype="multipart/form-data")
       fieldset
         legend Persoonlijk
         .form-container
@@ -37,6 +37,7 @@ html(lang='nl')
           div.error!= errors.description ? errors.description.msg : null
           textarea(name='description', placeholder='Omschrijf jezelf', rows='8')
             | #{person.description}
+          input(type='file' name='profilePic' value='Upload your photo' accept='image/*')
 
       fieldset
         legend Account
