@@ -1,0 +1,86 @@
+html
+    head
+    title Person
+
+style
+    include ../public/css/form.css
+
+body
+
+h1 Edit je profiel
+
+form(action='/update' method='POST' novalidate='')
+  fieldset
+    legend Persoonlijk
+    .form-container
+      label(for='firstname') Voornaam
+      <input name='firstname' value='#{firstname}'/>
+
+      label(for='lastname')  Achternaam
+      <input name='lastname' value='#{lastname}'/>
+
+      label(for='age') Leeftijd
+      <input name="age" value='#{age}'/>
+
+      label(for='gender') Gender
+      each geslacht in gender 
+        select(name='gender')
+          option(value='M') Man
+          option(value='V') Vrouw
+      
+      textarea(name='description' placeholder='Omschrijf jezelf' rows='8')
+        | #{description}
+
+  fieldset
+    legend Account
+    .form-container
+      label(for='email') E-mail
+      <input name='email' value='#{email}'/>
+      label(for='password') Wachtwoord
+      <input name='password' type='password' value='#{password}'/>
+
+
+  fieldset
+    legend Huidig geselecteerde sporten
+    each selectedSport in sports
+        div
+            <input type="checkbox" checked value="#{sport}"/>
+            | #{selectedSport}
+
+
+  form(action='/aanmelden' validate='')
+    fieldset
+      legend Sport
+      div
+        label(for='firstname') Ik beoefen de volgende sport(en)
+        br
+        input(type='checkbox' name='fitness')
+        |  Fitness
+        input(type='checkbox' name='gymnastiek')
+        |  Gymnastiek
+        input(type='checkbox' name='hardlopen')
+        |  Hardlopen 
+        input(type='checkbox' name='atletiek')
+        |  Atletiek
+        input(type='checkbox' name='hockey')
+        |  Hockey
+        input(type='checkbox' name='honkbal')
+        |  Honkbal 
+        input(type='checkbox' name='paardensport')
+        |  Paardensport
+        input(type='checkbox' name='tennis')
+        |  Tennis
+        input(type='checkbox' name='schaatsen')
+        |  Schaatsen 
+        input(type='checkbox' name='voetbal')
+        |  Voetbal
+        input(type='checkbox' name='volleybal')
+        |  Volleybal
+        input(type='checkbox' name='waterpolo')
+        |  Waterpolo
+        input(type='checkbox' name='zwemmen')
+        |  Zwemmen
+
+    div.button-container
+      button.register(style='height: 50;') Update je profiel
+        
