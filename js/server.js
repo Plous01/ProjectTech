@@ -91,6 +91,7 @@ app.get("/person/edit/:id", (request, response) => {
             response.render("editperson", person);
         }
     });
+    console.log(request.body[sports]);
 })
 
 app.get("/account", (request, response) => {
@@ -186,8 +187,21 @@ app.post("/update", (request, response, next) => {
         }
     }
 
+
     let updatedSports = [].concat(newSports,selectedSports);
 
+    for (let sport of updatedSports) {
+        if (request.body[sport] === "off") {
+            db.collection("persons").updateOne({
+                "_id": ObjectId(personId)
+            }, {
+                $pull: {
+                    "sports": {$in: [sport]}
+                }
+            })
+        }
+    }
+    console.log(updatedSports);
 
     db.collection("persons").updateOne({"_id": ObjectId(personId)},{
         $set: {
@@ -204,7 +218,6 @@ app.post("/update", (request, response, next) => {
         upsert: true
     },
      (error, person) => {
-         console.log(updatedSports);
          response.redirect("/person/" + personId);
     })
 

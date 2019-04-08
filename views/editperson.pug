@@ -42,10 +42,10 @@ form(action='/update' method='POST' novalidate='')
 
   fieldset
     legend Huidig geselecteerde sporten
-    each sport in sports
+    each selectedSport in sports
         div
             <input type="checkbox" checked value="#{sport}"/>
-            | #{sport}
+            | #{selectedSport}
 
 
   form(action='/aanmelden' validate='')
