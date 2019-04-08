@@ -109,7 +109,6 @@ app.get("/persons", (request, response) => {
         };
     }
 
-
     db.collection("persons").find(filter).toArray((error, persons) => {
         response.render("persons", {
             persons: persons,
@@ -117,8 +116,6 @@ app.get("/persons", (request, response) => {
         });
     });
 })
-
-
 
 app.get("/register", (request, response) => {
     response.render("register", {

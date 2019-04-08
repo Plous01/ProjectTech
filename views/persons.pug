@@ -72,8 +72,13 @@ html(lang='nl')
                       h2 #{persons[i].firstname} • #{persons[i].age} jaar • #{persons[i].sports ? persons[i].sports[0] : "" }
                       p #{persons[i].description}
                       a(href='/person/' + persons[i]._id) Meer over mij!
-          article
-              button Meer studenten
+          
+          -if(persons.length>0)
+            article
+                button Meer studenten
+          -if(persons.length==0)
+            div 
+              | Geen personen gevonden
     footer
       p
         | Copyright Paulien©
