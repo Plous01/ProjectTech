@@ -5,6 +5,7 @@ const bodyparser = require("body-parser"); // source https://www.npmjs.com/packa
 const MongoClient = require("mongodb").MongoClient; // source https://www.mongodb.com
 const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
+const multer = require('multer')
 const session = require("express-session"); //source https://www.npmjs.com/package/express-session
 const {
     check,
@@ -32,6 +33,11 @@ app.use(session({
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET
 }));
+
+//Upload a photo
+let upload = multer({
+    dest: 'public/uploads/'
+  })
 
 // Intialize connection to MongoDB database
 let db = null;
@@ -127,7 +133,7 @@ app.get("/register", (request, response) => {
     });
 })
 
-app.post("/register", [
+app.post("/register", upload.single('profilePic'), [
     check("firstname").isLength({ min: 1 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
     check("lastname").isLength({ min: 1 }).withMessage("Oeps! Je bent je achternaam vergeten"),
     check("age").isInt({
@@ -149,6 +155,7 @@ app.post("/register", [
     let passwordcheck = request.body.passwordcheck;
     let email = request.body.email;
     let description = request.body.description;
+    let profilePic = request.body.profilePic;
 
     let selectedSports = []; // for database
     let submittedSports = {}; // for register form (to remember which checkboxes are checked)
@@ -170,7 +177,8 @@ app.post("/register", [
         password: password,
         passwordcheck: passwordcheck,
         description: description,
-        sports: submittedSports
+        sports: submittedSports,
+        profilePic: request.file ? request.file.filename : null
     };
 
     const errors = validationResult(request).mapped();

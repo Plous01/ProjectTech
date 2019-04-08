@@ -9,11 +9,10 @@
 </head>
 
 <body>
-
     <!--Aanmeldformulier-->
     <h1 class="aanmelden">Aanmelden</h1>
 
-    <form action="/register" method="POST" novalidate>
+    <form action="/register" method="POST" novalidate enctype="multipart/form-data">
         <fieldset>
             <legend>Persoonlijk</legend>
             <div class="form-container">
@@ -27,6 +26,8 @@
                 <span> <input type="radio" name="gender" value="M"> Man </span>
                 <span> <input type="radio" name="gender" value="F" checked> Vrouw </span>
                 <textarea name="description" placeholder="Omschrijf jezelf" rows="8"></textarea>
+                <label for="profilePic">Upload je photo</label>
+                <input type="file" name="profilePic" value="Upload your photo" accept=image/*>
             </div>
         </fieldset>
 
@@ -77,5 +78,4 @@
 
 
 </body>
-
 </html>
