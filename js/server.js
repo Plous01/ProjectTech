@@ -6,6 +6,10 @@ const MongoClient = require("mongodb").MongoClient; // source https://www.mongod
 const ObjectId = require("mongodb").ObjectID;
 const dotenv = require("dotenv");
 const session = require("express-session"); //source https://www.npmjs.com/package/express-session
+const {
+    check,
+    validationResult
+} = require('express-validator/check');
 
 // Create express application
 const app = express();
@@ -14,7 +18,6 @@ const app = express();
 dotenv.config();
 
 // Add body parser (used when a form is POST-ed)
-app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({
     extended: true
 }));
@@ -135,34 +138,80 @@ app.get("/persons", (request, response) => {
     });
 })
 
-app.post("/register", (request, response) => {
-    console.log("Register new person...");
+app.get("/register", (request, response) => {
+    response.render("register", {
+        person: {
+            gender: "F",
+            sports: {}
+        },
+        errors: []
+    });
+})
+
+app.post("/register", [
+    check("firstname").isLength({ min: 1 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
+    check("lastname").isLength({ min: 1 }).withMessage("Oeps! Je bent je achternaam vergeten"),
+    check("age").isInt({
+        gt: 17 //greater than
+    }).withMessage("Vul alsjeblieft je leeftijd is, de minimumleeftijd is 17 jaar"),
+    check("email").isEmail().withMessage("Dit is helaas geen geldige e-mail"),
+    check("description").not().isEmpty().withMessage("Probeer toch even een korte beschrijving van jezelf te geven, wees creatief"),
+    check("password").isLength({
+        min: 5
+    }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn"),
+    check("passwordcheck","Wachtwoorden moeten gelijk zijn")
+        .custom((value, { req }) => value == req.body.password)
+], (request, response) => {    
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
+    let gender = request.body.gender;
     let password = request.body.password;
+    let passwordcheck = request.body.passwordcheck;
     let email = request.body.email;
     let description = request.body.description;
-    let gender = request.body.gender;
 
-    let selectedSports = [];
+    let selectedSports = []; // for database
+    let submittedSports = {}; // for register form (to remember which checkboxes are checked)
     for (let sport of sports) {
         if (request.body[sport] === "on") {
             selectedSports.push(sport);
+            submittedSports[sport] = "on";
+        } else {
+            submittedSports[sport] = "off";
         }
     }
 
-    db.collection("persons").insertOne({
+    let person = {
         firstname: firstname,
         lastname: lastname,
         age: age,
         gender: gender,
         email: email,
         password: password,
+        passwordcheck: passwordcheck,
         description: description,
-        sports: selectedSports
-    }, (error, person) => {
-        console.log(gender);
+        sports: submittedSports
+    };
+
+    const errors = validationResult(request).mapped();
+    if (selectedSports.length == 0) {
+        errors["sports"] = { msg: "Vul een of meerdere sporten in"};
+    }
+
+    if (Object.keys(errors).length>0) {
+        response.render("register", {
+            person: person,
+            errors: errors
+        });
+        return;
+    }
+
+    // Make sure the right properties are send to the database
+    person.sports = selectedSports;
+    delete person.passwordcheck;
+
+    db.collection("persons").insertOne(person, (error, person) => {
         response.redirect("/");
     })
 
@@ -223,16 +272,40 @@ app.post("/update", (request, response, next) => {
 
 })
 
-app.post("/login", (request, response) => {
+app.get("/login", (request, response) => {
+    response.render("login", { errors: {}, person: {}});
+})
+
+app.post("/login", [
+    check("email").isEmail().withMessage("Dit is helaas geen geldige e-mail"),
+    check("password").isLength({
+        min: 5
+    }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn")
+],(request, response) => {
     let loginEmail = request.body.email;
     let loginPassword = request.body.password;
 
-    db.collection("persons").findOne({
+    let loginPerson = {
         email: loginEmail,
         password: loginPassword
-    }, (error, person) => {
+    }
+
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        //console.log(errors.mapped());
+        response.render("login", {
+            person: loginPerson,
+            errors: errors.mapped()
+        });
+        return;
+    }    
+
+    db.collection("persons").findOne(loginPerson, (error, person) => {
         if (error || person == null) {
-            response.redirect("/login.html");
+            response.render("login", {
+                person: loginPerson,
+                errors: { loginError : "Login mislukt! Probeer het nog een keer"}
+            });
         } else {
             request.session.personId = person._id;
             request.session.sports = person.sports;

@@ -21,45 +21,47 @@ html(lang='nl')
           #category Filter op sport
           ul
             li
-              input#avontuur(type='checkbox', name='atletiek', checked=request.query.atletiek=="on")
-              label(for='avontuur') Atletiek
+              input#atletiek(type='checkbox', name='atletiek', checked=request.query.atletiek=="on")
+              label(for='atletiek') Atletiek
             li
-              input#romantisch(type='checkbox', name='fitness', checked=request.query.fitness=="on")
-              label(for='romantisch') Fitness
+              input#fitness(type='checkbox', name='fitness', checked=request.query.fitness=="on")
+              label(for='fitness') Fitness
             li
-              input#juridisch(type='checkbox' name='gymnastiek', checked=request.query.gymnastiek=="on")
-              label(for='juridisch') Gymnastiek
+              input#gymnastiek(type='checkbox' name='gymnastiek', checked=request.query.gymnastiek=="on")
+              label(for='gymnastiek') Gymnastiek
             li
-              input#horror(type='checkbox' name='hardlopen', checked=request.query.hardlopen=="on")
-              label(for='horror') Hardlopen
+              input#hardlopen(type='checkbox' name='hardlopen', checked=request.query.hardlopen=="on")
+              label(for='hardlopen') Hardlopen
             li
-              input#koken(type='checkbox' name='hockey', checked=request.query.hockey=="on")
-              label(for='koken') Hockey
+              input#hockey(type='checkbox' name='hockey', checked=request.query.hockey=="on")
+              label(for='hockey') Hockey
             li
-              input#biografie(type='checkbox' name='honkbal', checked=request.query.honkbal=="on")
-              label(for='biografie') Honkbal
+              input#honkbal(type='checkbox' name='honkbal', checked=request.query.honkbal=="on")
+              label(for='honkbal') Honkbal
             li
-              input#detective(type='checkbox' name='paardensport', checked=request.query.paardensport=="on")
-              label(for='detective') Paardensport
+              input#paardensport(type='checkbox' name='paardensport', checked=request.query.paardensport=="on")
+              label(for='paardensport') Paardensport
             li
-              input#humor(type='checkbox' name='tennis', checked=request.query.tennis=="on")
-              label(for='humor') Tennis
+              input#tennis(type='checkbox' name='tennis', checked=request.query.tennis=="on")
+              label(for='tennis') Tennis
             li
-              input#psychologie(type='checkbox' name ='schaatsen', checked=request.query.schaatsen=="on")
-              label(for='psychologie') Schaatsen
+              input#schaatsen(type='checkbox' name ='schaatsen', checked=request.query.schaatsen=="on")
+              label(for='schaatsen') Schaatsen
             li
-              input#romantisch(type='checkbox' name='voetbal', checked=request.query.voetbal=="on")
-              label(for='romantisch') Voetbal
+              input#voetbal(type='checkbox' name='voetbal', checked=request.query.voetbal=="on")
+              label(for='voetbal') Voetbal
             li
-              input#agressief(type='checkbox' name='volleybal', checked=request.query.volleybal=="on")
-              label(for='agressief') Volleybal
+              input#volleybal(type='checkbox' name='volleybal', checked=request.query.volleybal=="on")
+              label(for='volleybal') Volleybal
             li
-              input#technologie(type='checkbox' name='waterpolo', checked=request.query.waterpolo=="on")
-              label(for='technologie') Waterpolo
+              input#waterpolo(type='checkbox' name='waterpolo', checked=request.query.waterpolo=="on")
+              label(for='waterpolo') Waterpolo
             li
-              input#sport(type='checkbox' name='zwemmen', checked=request.query.zwemmen=="on")
-              label(for='sport') Zwemmen
-          button(type=submit) Filter
+              input#zwemmen(type='checkbox' name='zwemmen', checked=request.query.zwemmen=="on")
+              label(for='zwemmen') Zwemmen
+          button(type='submit' value=Submit) Filter
+        form(action='/persons')
+          button(type='submit' value=Reset) Reset
 
       section.persons
           -for(var i = 0; i < persons.length; i++)
@@ -70,8 +72,13 @@ html(lang='nl')
                       h2 #{persons[i].firstname} • #{persons[i].age} jaar • #{persons[i].sports ? persons[i].sports[0] : "" }
                       p #{persons[i].description}
                       a(href='/person/' + persons[i]._id) Meer over mij!
-          article
-              button Meer studenten
+          
+          -if(persons.length>0)
+            article
+                button Meer studenten
+          -if(persons.length==0)
+            div 
+              | Geen personen gevonden
     footer
       p
         | Copyright Paulien©
