@@ -11,6 +11,7 @@ const {
     check,
     validationResult
 } = require('express-validator/check');
+const path = require("path");
 
 // Create express application
 const app = express();
@@ -36,8 +37,15 @@ app.use(session({
 
 //Upload a photo
 let upload = multer({
-    dest: 'public/uploads/'
-  })
+    dest: 'public/uploads/',
+    fileSize: 3000000,
+    fileFilter: function(req, file, callback) {
+      const ext = path.extname(file.originalname);
+      if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+        return  callback(null, false);
+      }
+    }
+   })
 
 // Intialize connection to MongoDB database
 let db = null;
