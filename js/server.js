@@ -36,8 +36,15 @@ app.use(session({
 
 //Upload a photo
 let upload = multer({
-    dest: 'public/uploads/'
-  })
+    dest: 'public/uploads/',
+    fileSize: 3000000,
+    fileFilter: function (req, file, callback) {
+        const ext = path.extname(file.originalname);
+        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            return callback(null, false);
+        }
+    }
+})
 
 // Intialize connection to MongoDB database
 let db = null;
@@ -88,9 +95,9 @@ app.get("/person/edit/:id", (request, response) => {
         response.redirect("/");
         return;
     }
- 
+
     let personId = request.params.id;
- 
+
     db.collection("persons").findOne({
         "_id": ObjectId(personId)
     }, (error, person) => {
@@ -101,7 +108,7 @@ app.get("/person/edit/:id", (request, response) => {
         }
     });
     console.log(request.body[sports]);
- })
+})
 
 app.get("/account", (request, response) => {
     // Check if user is logged in
@@ -156,8 +163,12 @@ app.get("/register", (request, response) => {
 
 
 app.post("/register", upload.single('profilePic'), [
-    check("firstname").isLength({ min: 1 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
-    check("lastname").isLength({ min: 1 }).withMessage("Oeps! Je bent je achternaam vergeten"),
+    check("firstname").isLength({
+        min: 1
+    }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
+    check("lastname").isLength({
+        min: 1
+    }).withMessage("Oeps! Je bent je achternaam vergeten"),
     check("age").isInt({
         gt: 17 //greater than
     }).withMessage("Vul alsjeblieft je leeftijd is, de minimumleeftijd is 17 jaar"),
@@ -166,9 +177,11 @@ app.post("/register", upload.single('profilePic'), [
     check("password").isLength({
         min: 5
     }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn"),
-    check("passwordcheck","Wachtwoorden moeten gelijk zijn")
-        .custom((value, { req }) => value == req.body.password)
-], (request, response) => {    
+    check("passwordcheck", "Wachtwoorden moeten gelijk zijn")
+    .custom((value, {
+        req
+    }) => value == req.body.password)
+], (request, response) => {
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
@@ -207,10 +220,12 @@ app.post("/register", upload.single('profilePic'), [
 
     const errors = validationResult(request).mapped();
     if (selectedSports.length == 0) {
-        errors["sports"] = { msg: "Vul een of meerdere sporten in"};
+        errors["sports"] = {
+            msg: "Vul een of meerdere sporten in"
+        };
     }
 
-    if (Object.keys(errors).length>0) {
+    if (Object.keys(errors).length > 0) {
         response.render("register", {
             person: person,
             errors: errors
@@ -238,18 +253,18 @@ app.post("/update", (request, response, next) => {
     let email = request.body.email;
     let description = request.body.description;
     let selectedSports = request.session.sports;
- 
-     let newSports = [];
- 
+
+    let newSports = [];
+
     for (let sport of sports) {
         if (request.body[sport] === "on") {
             newSports.push(sport);
         }
     }
- 
- 
-    let updatedSports = [].concat(newSports,selectedSports);
- 
+
+
+    let updatedSports = [].concat(newSports, selectedSports);
+
     // for (let sport of updatedSports) {
     //     if (request.body[sport] === "off") {
     //         db.collection("persons").updateOne({
@@ -262,29 +277,34 @@ app.post("/update", (request, response, next) => {
     //     }
     // }
     console.log(updatedSports);
- 
-    db.collection("persons").updateOne({"_id": ObjectId(personId)},{
-        $set: {
-            firstname: firstname,
-            lastname: lastname,
-            age: age,
-            gender: gender,
-            email: email,
-            description: description,
-            password: password,
-            sports: updatedSports
-        }
-    }, {
-        upsert: true
-    },
-     (error, person) => {
-         response.redirect("/person/" + personId);
-    })
- 
- })
+
+    db.collection("persons").updateOne({
+            "_id": ObjectId(personId)
+        }, {
+            $set: {
+                firstname: firstname,
+                lastname: lastname,
+                age: age,
+                gender: gender,
+                email: email,
+                description: description,
+                password: password,
+                sports: updatedSports
+            }
+        }, {
+            upsert: true
+        },
+        (error, person) => {
+            response.redirect("/person/" + personId);
+        })
+
+})
 
 app.get("/login", (request, response) => {
-    response.render("login", { errors: {}, person: {}});
+    response.render("login", {
+        errors: {},
+        person: {}
+    });
 })
 
 app.post("/login", [
@@ -292,7 +312,7 @@ app.post("/login", [
     check("password").isLength({
         min: 5
     }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn")
-],(request, response) => {
+], (request, response) => {
     let loginEmail = request.body.email;
     let loginPassword = request.body.password;
 
@@ -309,13 +329,15 @@ app.post("/login", [
             errors: errors.mapped()
         });
         return;
-    }    
+    }
 
     db.collection("persons").findOne(loginPerson, (error, person) => {
         if (error || person == null) {
             response.render("login", {
                 person: loginPerson,
-                errors: { loginError : "Login mislukt! Probeer het nog een keer"}
+                errors: {
+                    loginError: "Login mislukt! Probeer het nog een keer"
+                }
             });
         } else {
             request.session.personId = person._id;
