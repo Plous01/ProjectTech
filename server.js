@@ -40,13 +40,13 @@ let upload = multer({
     dest: 'public/uploads/',
     fileSize: 3000000,
 
-    fileFilter: function(req, file, callback) {
-      const ext = path.extname(file.originalname);
-      if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-        return  callback(null, false);
-      }
+    fileFilter: function (req, file, callback) {
+        const ext = path.extname(file.originalname);
+        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            return callback(null, false);
+        }
     }
-   })
+})
 
 // Intialize connection to MongoDB database
 let db = null;
@@ -205,8 +205,6 @@ app.post("/register", upload.single('profilePic'), [
         }
     }
 
-
-
     let person = {
         firstname: firstname,
         lastname: lastname,
@@ -263,7 +261,6 @@ app.post("/update", (request, response, next) => {
             newSports.push(sport);
         }
     }
-
 
     let updatedSports = [].concat(newSports, selectedSports);
 
@@ -355,7 +352,7 @@ app.get("/logout", (request, response) => {
 })
 
 // Start the server!
-const port = process.env.SERVER_PORT || 3000
+const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log("Server is running on port", port)
 });
