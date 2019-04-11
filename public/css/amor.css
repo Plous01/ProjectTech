@@ -191,11 +191,6 @@ main section.persons article div.article-image-container img.like-icon {
     left: 5%;
 }
 
-main article img.download-icon {
-    bottom: 10%;
-    right: 5%;
-}
-
 main section.persons article div.article-image-container img.add-icon {
     bottom: 10%;
     right: 15%;
@@ -235,6 +230,16 @@ main section.persons article button {
     padding-top: 1.2em;
     padding-bottom: 1.2em;
     font-size: 1.2em;
+}
+
+main aside form button {
+    background-color: var(--primary-action-color);
+    color: white;
+    border: none;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+    font-size: 1em;
 }
 
 footer {
@@ -288,9 +293,33 @@ section.submenu ul li a:hover {
     color: #fc1d6c;
 }
 
+.selectBox {
+    position: relative;
+}
+
+.selectBox select {
+    width: 90%;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom: 0;
+}
+
+main aside form.filter ul {
+    display:none;
+}
+
+main aside form.filter {
+    width:100%;
+}
 
 @media (min-width: 62.5em) {
-
 
     header section.menu {
         position: relative;

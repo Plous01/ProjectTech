@@ -4,8 +4,8 @@
   "description": "",
   "main": "js/server.js",
   "scripts": {
-    "start": "node js/server.js",
-    "dev": "nodemon js/server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Paulien Lous",
   "license": "MIT",
