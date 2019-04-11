@@ -2,7 +2,7 @@
     --primary-action-color: #fc1d6c;
     --secondary-action-color: #EEF0EC;
     --third-action-color: #000;
-    --fourth-action-color:#464646; 
+    --fourth-action-color:#464646;
     --icon-size: 1.2em;
 }
 
@@ -32,6 +32,22 @@ p{
 }
 form {
     display: inline;
+}
+
+li{
+  display: inline;
+  background-color: #fcad1d;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  margin-right: 10px;
+  padding: 10px;
+  color: white;
+}
+
+div{
+    color: #efecec;
+    text-align: center;
+    font-size: 14pt;
 }
 
 form div.button-container button.register {

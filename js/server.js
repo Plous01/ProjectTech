@@ -39,12 +39,12 @@ app.use(session({
 let upload = multer({
     dest: 'public/uploads/',
     fileSize: 3000000,
-
     fileFilter: function(req, file, callback) {
       const ext = path.extname(file.originalname);
       if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
         return  callback(null, false);
       }
+      callback(null, true);
     }
    })
 

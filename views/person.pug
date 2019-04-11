@@ -7,6 +7,9 @@ style
 
 body
 h1 #{firstname} #{lastname} (#{age} years old) - #{gender}
-p #{sports}
+div
+  div#sportwrapper
+    ul
+      each val in sports
+        li= val
 a(href='/person/edit/' + _id ) Edit your profile
--if(person_id)
