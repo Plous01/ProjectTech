@@ -38,10 +38,16 @@ npm run start
 
 **OR**
 
-4. Run the application in developer mode
+5. Run the application in developer mode
 ```Javascript
 npm run dev
 ```
+
+5. Database
+For this project we used MongoDb and DbAtlas as the database.
+
+The database model we used is:
+
 
 ## Packages included
 * Nodemon
