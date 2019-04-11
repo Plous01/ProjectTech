@@ -2,7 +2,7 @@
   "name": "datingapp",
   "version": "1.0.0",
   "description": "",
-  "main": "js/server.js",
+  "main": "server.js",
   "scripts": {
     "start": "node js/server.js",
     "dev": "nodemon js/server.js"
