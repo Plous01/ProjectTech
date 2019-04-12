@@ -311,6 +311,10 @@ section.submenu ul li a:hover {
     bottom: 0;
 }
 
+main aside form.filter ul {
+    display: none;
+}
+
 
 main aside form.filter {
     width:100%;
