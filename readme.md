@@ -29,6 +29,10 @@ We used MongoDB.
 
 ![Database model](public/img/databasemodel.png)
 
+# Packages
+
+To see what packages we have used, please have a look at the package.json file.
+
 # Installation
 
 1. Open your terminal
