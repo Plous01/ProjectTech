@@ -312,7 +312,7 @@ section.submenu ul li a:hover {
 }
 
 main aside form.filter ul {
-    display:none;
+    /*display:none;*/
 }
 
 main aside form.filter {
@@ -367,9 +367,9 @@ main aside form.filter {
         flex-grow: 0;
     }
 
-    main aside section.extra {
+    /*main aside section.extra {
         display: none;
-    }
+    }*/
     header section.banner-container {
         display: block;
     }

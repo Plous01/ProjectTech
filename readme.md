@@ -9,11 +9,23 @@ From the tech repository:
 
 The web application is a dating app. The goal is to find a serious relationship. For my project, I have decided to focus on sporty students.
 
-Amor, the name of my dating application, is a web app where sporty students can meet and date other students.
+Amor, the name of my dating application, is a web app where sporty students can meet and date other students. Amor has some basic functionalities:
+
+* Register (+add a photo)
+* Login
+* Filter and reset filter
+* Edit your profile
+* Logout
 
 # Wiki
 
-Check my [wiki](https://github.com/Plous01/ProjectTech/wiki) for the process of this project.
+Check my [wiki](https://github.com/Plous01/ProjectTech/wiki) for the process of this project. Also have a look on week 7 and week 8 to see how we worked together as a team.
+
+# Database
+
+We used MongoDB. 
+
+![Database model](public/img/databasemodel.png)
 
 # Installation
 
@@ -42,10 +54,6 @@ npm run start
 ```Javascript
 npm run dev
 ```
-
-## Packages included
-* Nodemon
-* Camelcase
 
 ## License
 [MIT](https://github.com/Plous01/ProjectTech/blob/master/LICENSE)

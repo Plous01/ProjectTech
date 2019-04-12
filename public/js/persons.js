@@ -17,7 +17,6 @@ function clickFilterCheckbox() {
 
 function clickCategory() {
     let filterCheckboxes = document.getElementById("filterCheckboxes");
-
     if (filterCheckboxes.style.display == "block") {
         filterCheckboxes.style.display = "none";
     } else {
