@@ -22,7 +22,7 @@ client.connect(error => {
     db = client.db(dbName);
 });
 
-exports.checkLogin = (request, response) => {
+module.exports = (request, response) => {
     let loginEmail = request.body.email;
     let loginPassword = request.body.password;
 

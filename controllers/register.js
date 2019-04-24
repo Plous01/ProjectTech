@@ -1,4 +1,4 @@
-exports.register = (request, response) => {
+module.exports = (request, response) => {
     response.render("register", {
         person: {
             gender: "F",

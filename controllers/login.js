@@ -1,3 +1,3 @@
-exports.login = (request, response) => {
+module.exports = (request, response) => {
     response.render("login", { errors: {}, person: {}});
 }

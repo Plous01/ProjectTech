@@ -23,7 +23,7 @@ let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
     "voetbal", "volleybal", "waterpolo", "zwemmen"
 ];
 
-exports.persons = (request, response) => {
+module.exports = (request, response) => {
     // Check if user is logged in
     if (!request.session.personId) {
         response.redirect("/");

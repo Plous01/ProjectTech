@@ -1,4 +1,4 @@
-exports.logout = (request, response) => {
+module.exports = (request, response) => {
     request.session.destroy();
     response.redirect("/");
 }

@@ -31,7 +31,7 @@ let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
 ];
 
 
-exports.update = (request, response, next) => {
+module.exports = (request, response, next) => {
     let personId = request.session.personId;
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;

@@ -73,11 +73,11 @@ const login = require('../controllers/login.js');
 const checkLogin = require('../controllers/checklogin.js');
 const logout = require('../controllers/logout.js');
 
-app.get("/person/:id", person.person);
-app.get("/person/edit/:id", editPerson.editPerson)
-app.get("/account", account.account)
-app.get("/persons", persons.persons);
-app.get("/register", register.register);
+app.get("/person/:id", person);
+app.get("/person/edit/:id", editPerson)
+app.get("/account", account)
+app.get("/persons", persons);
+app.get("/register", register);
 app.post("/register", upload.single('profilePic'), [
     check("firstname").isLength({ min: 1 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
     check("lastname").isLength({ min: 1 }).withMessage("Oeps! Je bent je achternaam vergeten"),
@@ -91,16 +91,16 @@ app.post("/register", upload.single('profilePic'), [
     }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn"),
     check("passwordcheck","Wachtwoorden moeten gelijk zijn")
         .custom((value, { req }) => value == req.body.password)
-], createPerson.createPerson)
-app.post("/update", update.update);
-app.get("/login", login.login);
+], createPerson)
+app.post("/update", update);
+app.get("/login", login);
 app.post("/login", [
     check("email").isEmail().withMessage("Dit is helaas geen geldige e-mail"),
     check("password").isLength({
         min: 5
     }).withMessage("Je wachtwoord moet minimaal 5 karakters zijn")
-], checkLogin.checkLogin)
-app.get("/logout", logout.logout);
+], checkLogin)
+app.get("/logout", logout);
 
 // Start the server!
 const port = process.env.SERVER_PORT || 3000

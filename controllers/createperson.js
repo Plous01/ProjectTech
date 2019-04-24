@@ -33,8 +33,7 @@ let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
     "voetbal", "volleybal", "waterpolo", "zwemmen"
 ];
 
-
-exports.createPerson = (request, response) => {    
+module.exports = (request, response) => {    
     let firstname = request.body.firstname;
     let lastname = request.body.lastname;
     let age = request.body.age;
