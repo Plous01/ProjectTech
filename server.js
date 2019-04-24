@@ -11,6 +11,7 @@ const {
     check,
     validationResult
 } = require('express-validator/check');
+const path = require("path");
 
 // Create express application
 const app = express();
@@ -36,8 +37,16 @@ app.use(session({
 
 //Upload a photo
 let upload = multer({
-    dest: 'public/uploads/'
-  })
+    dest: 'public/uploads/',
+    fileSize: 3000000,
+
+    fileFilter: function (req, file, callback) {
+        const ext = path.extname(file.originalname);
+        if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            return callback(null, false);
+        }
+    }
+})
 
 // Intialize connection to MongoDB database
 let db = null;
@@ -62,16 +71,16 @@ let sports = ["fitness", "gymnastiek", "hardlopen", "atletiek",
     "voetbal", "volleybal", "waterpolo", "zwemmen"
 ];
 
-const person = require('../controllers/person.js');
-const editPerson = require('../controllers/editperson.js');
-const account = require('../controllers/account.js')
-const persons = require('../controllers/persons.js');
-const createPerson = require('../controllers/createperson.js');
-const register = require('../controllers/register.js');
-const update = require('../controllers/update.js');
-const login = require('../controllers/login.js');
-const checkLogin = require('../controllers/checklogin.js');
-const logout = require('../controllers/logout.js');
+const person = require('./controllers/person.js');
+const editPerson = require('./controllers/editperson.js');
+const account = require('./controllers/account.js')
+const persons = require('./controllers/persons.js');
+const createPerson = require('./controllers/createperson.js');
+const register = require('./controllers/register.js');
+const update = require('./controllers/update.js');
+const login = require('./controllers/login.js');
+const checkLogin = require('./controllers/checklogin.js');
+const logout = require('./controllers/logout.js');
 
 app.get("/person/:id", person);
 app.get("/person/edit/:id", editPerson)
@@ -79,8 +88,12 @@ app.get("/account", account)
 app.get("/persons", persons);
 app.get("/register", register);
 app.post("/register", upload.single('profilePic'), [
-    check("firstname").isLength({ min: 1 }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
-    check("lastname").isLength({ min: 1 }).withMessage("Oeps! Je bent je achternaam vergeten"),
+    check("firstname").isLength({
+        min: 1
+    }).withMessage("Oh nee, het is wel handig als je een voornaam invoert"),
+    check("lastname").isLength({
+        min: 1
+    }).withMessage("Oeps! Je bent je achternaam vergeten"),
     check("age").isInt({
         gt: 17 //greater than
     }).withMessage("Vul alsjeblieft je leeftijd is, de minimumleeftijd is 17 jaar"),
@@ -103,7 +116,7 @@ app.post("/login", [
 app.get("/logout", logout);
 
 // Start the server!
-const port = process.env.SERVER_PORT || 3000
+const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log("Server is running on port", port)
 });

@@ -19,7 +19,7 @@ html(lang='nl')
       aside
         form.filter(action='/persons')
           #category Filter op sport
-          ul
+          ul#filterCheckboxes
             li
               input#atletiek(type='checkbox', name='atletiek', checked=request.query.atletiek=="on")
               label(for='atletiek') Atletiek
@@ -59,9 +59,8 @@ html(lang='nl')
             li
               input#zwemmen(type='checkbox' name='zwemmen', checked=request.query.zwemmen=="on")
               label(for='zwemmen') Zwemmen
-          button(type='submit' value=Submit) Filter
-        form(action='/persons')
-          button(type='submit' value=Reset) Reset
+          button(type='submit' value=Submit id='button-filter') Filter
+          button(type='submit' value=Reset id='button-reset') Reset
 
       section.persons
           -for(var i = 0; i < persons.length; i++)
@@ -81,4 +80,6 @@ html(lang='nl')
               | Geen personen gevonden
     footer
       p
-        | Copyright Paulien©
+        | Copyright Paulien©      
+    script(src='/js/persons.js')
+
