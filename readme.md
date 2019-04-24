@@ -11,11 +11,13 @@ The web application is a dating app. The goal is to find a serious relationship.
 
 Amor, the name of my dating application, is a web app where sporty students can meet and date other students. Amor has some basic functionalities:
 
-* Register (+add a photo)
+* Register (+upload a photo)
 * Login
-* Filter and reset filter
+* Filter and reset
 * Edit your profile
 * Logout
+
+The main goal of Amor is to find someone based on sports. You can filter on certain sports to see if there is somebody that practise the same sports as you do.
 
 # Wiki
 
@@ -26,6 +28,10 @@ Check my [wiki](https://github.com/Plous01/ProjectTech/wiki) for the process of 
 We used MongoDB. 
 
 ![Database model](public/img/databasemodel.png)
+
+# Packages
+
+To see what packages we have used, please have a look at the package.json file.
 
 # Installation
 
